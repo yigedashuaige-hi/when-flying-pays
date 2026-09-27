@@ -10,7 +10,9 @@ authors:
     given-names: Qiaoling
   - family-names: Wang
     given-names: Kaibo
-version: 1.0.0
+  - family-names: Shi
+    given-names: Yifan
+version: 1.0.2
 date-released: 2026-09-27
 repository-code: "https://github.com/yigedashuaige-hi/when-flying-pays"
 contact:

@@ -2,7 +2,7 @@
 
 Code and compact data for **“When Does Flying Pay Off? Ground-Failure Models and Mode-Switching Regimes for Terrestrial–Aerial Robots.”**
 
-Hongxin Wang, Qiaoling Liu, and Kaibo Wang — Hunan University  
+Hongxin Wang, Qiaoling Liu, Kaibo Wang, and Yifan Shi — Hunan University<br>
 Correspondence: hongxinw918@gmail.com
 
 ## What is included

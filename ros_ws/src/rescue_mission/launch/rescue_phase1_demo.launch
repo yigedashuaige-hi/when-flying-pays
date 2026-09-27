@@ -1,0 +1,46 @@
+<launch>
+  <arg name="gui" default="true" />
+  <arg name="headless" default="false" />
+  <arg name="paused" default="false" />
+  <arg name="strategy" default="rule" />
+  <arg name="scene" default="scene_a" />
+  <arg name="seed" default="-1" />
+  <arg name="mission_timeout" default="120.0" />
+  <arg name="runs_dir" default="" />
+  <arg name="latest_csv_path" default="" />
+  <arg name="ablation" default="none" />
+  <arg name="heteroscedastic" default="false" />
+  <arg name="initial_battery" default="-1" />
+  <arg name="switch_tau" default="-1" />
+  <arg name="fixed_first_switch_time" default="-1" />
+  <arg name="stuck_model" default="permanent" />
+  <arg name="fly_k1" default="-1" />
+  <arg name="air_backend" default="ideal" />
+  <arg name="layout_override_file" default="" />
+
+  <include file="$(find rescue_worlds)/launch/disaster_gazebo.launch">
+    <arg name="gui" value="$(arg gui)" />
+    <arg name="headless" value="$(arg headless)" />
+    <arg name="paused" value="$(arg paused)" />
+    <arg name="scene" value="$(arg scene)" />
+    <arg name="air_backend" value="$(arg air_backend)" />
+  </include>
+
+  <include file="$(find rescue_mission)/launch/rescue_mission.launch">
+    <arg name="strategy" value="$(arg strategy)" />
+    <arg name="scene" value="$(arg scene)" />
+    <arg name="seed" value="$(arg seed)" />
+    <arg name="mission_timeout" value="$(arg mission_timeout)" />
+    <arg name="runs_dir" value="$(arg runs_dir)" />
+    <arg name="latest_csv_path" value="$(arg latest_csv_path)" />
+    <arg name="ablation" value="$(arg ablation)" />
+    <arg name="heteroscedastic" value="$(arg heteroscedastic)" />
+    <arg name="initial_battery" value="$(arg initial_battery)" />
+    <arg name="switch_tau" value="$(arg switch_tau)" />
+    <arg name="fixed_first_switch_time" value="$(arg fixed_first_switch_time)" />
+    <arg name="stuck_model" value="$(arg stuck_model)" />
+    <arg name="fly_k1" value="$(arg fly_k1)" />
+    <arg name="air_backend" value="$(arg air_backend)" />
+    <arg name="layout_override_file" value="$(arg layout_override_file)" />
+  </include>
+</launch>

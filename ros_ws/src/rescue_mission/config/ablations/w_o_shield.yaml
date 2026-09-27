@@ -1,0 +1,13 @@
+# Ablation: w/o shield. The decision-layer safety supervisor enforces only for
+# the `risk_aware_safety` strategy, so the "without shield" condition is simply
+# the `risk_aware` strategy itself (the supervisor still monitors but does not
+# override). No parameter override is required:
+#
+#   with shield    -> strategy:=risk_aware_safety
+#   without shield -> strategy:=risk_aware
+#
+# This file exists so `ablation:=w_o_shield` is a valid, self-documenting
+# selection; the meaningful comparison is the strategy pair above (best shown in
+# Scene D via irreversible_failure / shield_override_count).
+mode_switcher:
+  ablation_tag: w_o_shield

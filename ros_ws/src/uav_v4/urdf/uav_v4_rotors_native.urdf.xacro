@@ -1,0 +1,262 @@
+<?xml version="1.0"?>
+<robot name="uav_v4" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- Phase C2: RotorS-native, one-primary-body uav_v4.
+       CAD meshes are fixed visual-only geometry. The primary body plus four
+       stock-pattern 5 g rotors exactly recomposes the measured total mass,
+       COM, and inertia from the original deployed CAD URDF. -->
+  <xacro:arg name="ground_structure" default="false"/>
+  <xacro:arg name="ground_plugin" default="false"/>
+
+  <link name="uav_v4/base_link">
+    <inertial>
+      <origin xyz="0.00204935628833 0.0000249263925494 0.0218721936748"
+              rpy="0 0 0"/>
+      <mass value="3.0240996088045096"/>
+      <inertia ixx="0.00870237516465" ixy="-0.00000178664119371"
+               ixz="0.0000403622929252" iyy="0.00801472699005"
+               iyz="0.00000838959092759" izz="0.0147215634579"/>
+    </inertial>
+
+    <!-- Fixed CAD visuals: no CAD mesh is used as a collision. -->
+    <visual name="cad_base">
+      <geometry><mesh filename="package://uav_v4/meshes/base_link.STL"/></geometry>
+      <material name="cad_white"><color rgba="1 1 1 1"/></material>
+    </visual>
+    <visual name="cad_arm_1">
+      <origin xyz="0.0475 -0.0455 0.04" rpy="0 0 0"/>
+      <geometry><mesh filename="package://uav_v4/meshes/arm1_link.STL"/></geometry>
+    </visual>
+    <visual name="cad_arm_2">
+      <origin xyz="-0.0475 0.0455 0.04" rpy="0 0 0"/>
+      <geometry><mesh filename="package://uav_v4/meshes/arm2_link.STL"/></geometry>
+    </visual>
+    <visual name="cad_arm_3">
+      <origin xyz="0.0475 0.0455 0.04" rpy="0 0 0"/>
+      <geometry><mesh filename="package://uav_v4/meshes/arm3_link.STL"/></geometry>
+    </visual>
+    <visual name="cad_arm_4">
+      <origin xyz="-0.0475 -0.0455 0.04" rpy="0 0 0"/>
+      <geometry><mesh filename="package://uav_v4/meshes/arm4_link.STL"/></geometry>
+    </visual>
+    <visual name="cad_wing_1">
+      <origin xyz="0.104504 -0.10182 0.0693" rpy="0 0 0"/>
+      <geometry><mesh filename="package://uav_v4/meshes/wing1_link.STL"/></geometry>
+    </visual>
+    <visual name="cad_wing_2">
+      <origin xyz="-0.104245 0.101756 0.0693" rpy="0 0 0"/>
+      <geometry><mesh filename="package://uav_v4/meshes/wing2_link.STL"/></geometry>
+    </visual>
+    <visual name="cad_wing_3">
+      <origin xyz="0.103619440914974 0.102344290523756 0.0693" rpy="0 0 0"/>
+      <geometry><mesh filename="package://uav_v4/meshes/wing3_link.STL"/></geometry>
+    </visual>
+    <visual name="cad_wing_4">
+      <origin xyz="-0.103669 -0.102494 0.0693" rpy="0 0 0"/>
+      <geometry><mesh filename="package://uav_v4/meshes/wing4_link.STL"/></geometry>
+    </visual>
+    <visual name="cad_wheel_1">
+      <origin xyz="0.04 -0.088 -0.015" rpy="0 0 0"/>
+      <geometry><mesh filename="package://uav_v4/meshes/wheel1_link.STL"/></geometry>
+    </visual>
+    <visual name="cad_wheel_2">
+      <origin xyz="-0.04 -0.088 -0.015" rpy="0 0 0"/>
+      <geometry><mesh filename="package://uav_v4/meshes/wheel2_link.STL"/></geometry>
+    </visual>
+    <visual name="cad_wheel_3">
+      <origin xyz="0.04 0.088 -0.015" rpy="0 0 0"/>
+      <geometry><mesh filename="package://uav_v4/meshes/wheel3_link.STL"/></geometry>
+    </visual>
+    <visual name="cad_wheel_4">
+      <origin xyz="-0.04 0.088 -0.015" rpy="0 0 0"/>
+      <geometry><mesh filename="package://uav_v4/meshes/wheel4_link.STL"/></geometry>
+    </visual>
+
+    <!-- Stable primary flight-body collision. -->
+    <collision name="primary_body_collision">
+      <origin xyz="0.01 0 0.025" rpy="0 0 0"/>
+      <geometry><box size="0.15 0.17 0.08"/></geometry>
+    </collision>
+
+    <!-- Stage B/C only: four simple fixed wheel contact proxies. No dynamic
+         wheel joints are needed by the body-level planar ground semantics. -->
+    <xacro:if value="$(arg ground_structure)">
+      <collision name="wheel_1_proxy">
+        <origin xyz="0.04 -0.088 -0.015" rpy="1.57079632679 0 0"/>
+        <geometry><cylinder radius="0.029" length="0.0315"/></geometry>
+      </collision>
+      <collision name="wheel_2_proxy">
+        <origin xyz="-0.04 -0.088 -0.015" rpy="1.57079632679 0 0"/>
+        <geometry><cylinder radius="0.029" length="0.0315"/></geometry>
+      </collision>
+      <collision name="wheel_3_proxy">
+        <origin xyz="0.04 0.088 -0.015" rpy="1.57079632679 0 0"/>
+        <geometry><cylinder radius="0.029" length="0.0315"/></geometry>
+      </collision>
+      <collision name="wheel_4_proxy">
+        <origin xyz="-0.04 0.088 -0.015" rpy="1.57079632679 0 0"/>
+        <geometry><cylinder radius="0.029" length="0.0315"/></geometry>
+      </collision>
+    </xacro:if>
+  </link>
+
+  <xacro:macro name="native_rotor" params="number xyz direction color">
+    <joint name="uav_v4/rotor_${number}_joint" type="continuous">
+      <origin xyz="${xyz}" rpy="0 0 0"/>
+      <parent link="uav_v4/base_link"/>
+      <child link="uav_v4/rotor_${number}"/>
+      <axis xyz="0 0 1"/>
+    </joint>
+    <link name="uav_v4/rotor_${number}">
+      <inertial>
+        <mass value="0.005"/>
+        <!-- RotorS stock pattern: inertia uses mass*slowdown (0.05 kg)
+             to preserve numerical rotor angular momentum. -->
+        <inertia ixx="9.75e-07" ixy="0" ixz="0"
+                 iyy="1.76416666667e-05" iyz="0"
+                 izz="1.85416666667e-05"/>
+      </inertial>
+      <visual>
+        <geometry>
+          <mesh filename="package://rotors_description/meshes/propeller_${direction}.dae"
+                scale="0.065 0.065 0.065"/>
+        </geometry>
+        <material name="rotor_${number}_${color}"><color rgba="${color}"/></material>
+      </visual>
+      <collision>
+        <geometry><cylinder radius="0.065" length="0.003"/></geometry>
+      </collision>
+    </link>
+    <gazebo>
+      <plugin name="uav_v4_native_motor_${number}"
+              filename="librotors_gazebo_motor_model.so">
+        <robotNamespace>uav_v4</robotNamespace>
+        <jointName>uav_v4/rotor_${number}_joint</jointName>
+        <linkName>uav_v4/rotor_${number}</linkName>
+        <turningDirection>${direction}</turningDirection>
+        <timeConstantUp>0.0125</timeConstantUp>
+        <timeConstantDown>0.025</timeConstantDown>
+        <maxRotVelocity>1100</maxRotVelocity>
+        <motorConstant>1.568e-05</motorConstant>
+        <momentConstant>0.06</momentConstant>
+        <commandSubTopic>gazebo/command/motor_speed</commandSubTopic>
+        <motorNumber>${number}</motorNumber>
+        <rotorDragCoefficient>0.000175</rotorDragCoefficient>
+        <rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
+        <motorSpeedPubTopic>motor_speed/${number}</motorSpeedPubTopic>
+        <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
+      </plugin>
+    </gazebo>
+  </xacro:macro>
+
+  <xacro:native_rotor number="0" xyz="0.104504 -0.10182 0.0693"
+                       direction="ccw" color="0.2 0.2 0.2 1"/>
+  <xacro:native_rotor number="1" xyz="-0.104245 0.101756 0.0693"
+                       direction="ccw" color="0.2 0.2 0.2 1"/>
+  <xacro:native_rotor number="2" xyz="0.103619440914974 0.102344290523756 0.0693"
+                       direction="cw" color="0.4 0.4 0.4 1"/>
+  <xacro:native_rotor number="3" xyz="-0.103669 -0.102494 0.0693"
+                       direction="cw" color="0.4 0.4 0.4 1"/>
+
+  <gazebo>
+    <plugin name="uav_v4_native_multirotor_base"
+            filename="librotors_gazebo_multirotor_base_plugin.so">
+      <robotNamespace>uav_v4</robotNamespace>
+      <linkName>uav_v4/base_link</linkName>
+      <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
+    </plugin>
+    <plugin name="uav_v4_native_controller_interface"
+            filename="librotors_gazebo_controller_interface.so">
+      <robotNamespace>uav_v4</robotNamespace>
+      <commandAttitudeThrustSubTopic>command/attitude</commandAttitudeThrustSubTopic>
+      <commandRateThrustSubTopic>command/rate</commandRateThrustSubTopic>
+      <commandMotorSpeedSubTopic>command/motor_speed</commandMotorSpeedSubTopic>
+      <imuSubTopic>imu</imuSubTopic>
+      <motorSpeedCommandPubTopic>gazebo/command/motor_speed</motorSpeedCommandPubTopic>
+    </plugin>
+    <plugin name="uav_v4_native_imu" filename="librotors_gazebo_imu_plugin.so">
+      <robotNamespace>uav_v4</robotNamespace>
+      <linkName>uav_v4/base_link</linkName>
+      <imuTopic>imu</imuTopic>
+      <gyroscopeNoiseDensity>0.0003394</gyroscopeNoiseDensity>
+      <gyroscopeRandomWalk>3.8785e-05</gyroscopeRandomWalk>
+      <gyroscopeBiasCorrelationTime>1000.0</gyroscopeBiasCorrelationTime>
+      <gyroscopeTurnOnBiasSigma>0.0087</gyroscopeTurnOnBiasSigma>
+      <accelerometerNoiseDensity>0.004</accelerometerNoiseDensity>
+      <accelerometerRandomWalk>0.006</accelerometerRandomWalk>
+      <accelerometerBiasCorrelationTime>300.0</accelerometerBiasCorrelationTime>
+      <accelerometerTurnOnBiasSigma>0.196</accelerometerTurnOnBiasSigma>
+    </plugin>
+    <plugin name="uav_v4_native_odometry"
+            filename="librotors_gazebo_odometry_plugin.so">
+      <robotNamespace>uav_v4</robotNamespace>
+      <linkName>uav_v4/base_link</linkName>
+      <poseTopic>pose</poseTopic>
+      <poseWithCovarianceTopic>pose_with_covariance</poseWithCovarianceTopic>
+      <positionTopic>position</positionTopic>
+      <transformTopic>transform</transformTopic>
+      <odometryTopic>odometry</odometryTopic>
+      <parentFrameId>world</parentFrameId>
+      <childFrameId>uav_v4/base_link</childFrameId>
+      <measurementDivisor>1</measurementDivisor>
+      <measurementDelay>0</measurementDelay>
+      <unknownDelay>0.0</unknownDelay>
+      <noiseNormalPosition>0 0 0</noiseNormalPosition>
+      <noiseNormalQuaternion>0 0 0</noiseNormalQuaternion>
+      <noiseNormalLinearVelocity>0 0 0</noiseNormalLinearVelocity>
+      <noiseNormalAngularVelocity>0 0 0</noiseNormalAngularVelocity>
+      <noiseUniformPosition>0 0 0</noiseUniformPosition>
+      <noiseUniformQuaternion>0 0 0</noiseUniformQuaternion>
+      <noiseUniformLinearVelocity>0 0 0</noiseUniformLinearVelocity>
+      <noiseUniformAngularVelocity>0 0 0</noiseUniformAngularVelocity>
+    </plugin>
+    <!-- Replaceable takeoff-site measurement contract. This simulator sensor
+         only observes collision geometry and contacts; it applies no force and
+         sends no model-state command. -->
+    <plugin name="uav_v4_takeoff_clearance"
+            filename="libtakeoff_clearance_plugin.so">
+      <targetAltitude>1.2</targetAltitude>
+      <safetyMargin>0.02</safetyMargin>
+      <supportSurfaceTolerance>0.01</supportSurfaceTolerance>
+      <updateRate>50.0</updateRate>
+      <statusTopic>/rescue/rotors/takeoff_clearance</statusTopic>
+      <atomicStatusTopic>/rescue/rotors/takeoff_site_status</atomicStatusTopic>
+      <validTopic>/rescue/rotors/takeoff_site_valid</validTopic>
+      <measurementValidTopic>/rescue/rotors/takeoff_measurement_valid</measurementValidTopic>
+      <reasonTopic>/rescue/rotors/takeoff_blocked_reason</reasonTopic>
+      <recheckDistanceTopic>/rescue/rotors/takeoff_recheck_distance</recheckDistanceTopic>
+      <contactTopic>/rescue/rotors/obstacle_contact</contactTopic>
+      <contactForceTopic>/rescue/rotors/obstacle_contact_force_n</contactForceTopic>
+    </plugin>
+    <xacro:if value="$(arg ground_plugin)">
+      <plugin name="uav_v4_native_mode_aware_ground"
+              filename="libmode_aware_planar_move_plugin.so">
+        <commandTopic>/mecanum/cmd_vel</commandTopic>
+        <modeTopic>/rescue/mode</modeTopic>
+        <disarmedTopic>/rescue/rotors/disarmed</disarmedTopic>
+        <groundOwnershipTopic>/rescue/rotors/ground_ownership</groundOwnershipTopic>
+        <groundActiveTopic>/rescue/rotors/ground_control_active</groundActiveTopic>
+        <groundWrenchTopic>/rescue/rotors/ground_control_wrench</groundWrenchTopic>
+        <commandTimeout>0.5</commandTimeout>
+        <!-- Phase E1a finite-force ground ownership.  Total mass is
+             3.0440996088 kg, so 1.5 m/s^2 caps horizontal drive at 4.566 N.
+             The 29.83 N vertical cap is one vehicle weight; the 0.6 Nm level
+             cap is below the ~1.2 Nm wheel-support moment scale (m g 0.04 m). -->
+        <planarVelocityGain>32.0</planarVelocityGain>
+        <maxPlanarAcceleration>1.5</maxPlanarAcceleration>
+        <groundHeight>0.044</groundHeight>
+        <verticalKp>800.0</verticalKp>
+        <verticalKd>50.0</verticalKd>
+        <maxVerticalForce>29.83</maxVerticalForce>
+        <levelKp>1.0</levelKp>
+        <levelKd>0.15</levelKd>
+        <maxLevelTorque>0.6</maxLevelTorque>
+        <yawRateGain>8.0</yawRateGain>
+        <maxYawTorque>0.06</maxYawTorque>
+        <!-- Fixed proxies do not roll; low non-zero surface friction prevents
+             double-counting them as locked brakes. The plugin applies this to
+             wheel_* collisions only; body and rotor friction remain unchanged. -->
+        <wheelProxyFriction>0.05</wheelProxyFriction>
+      </plugin>
+    </xacro:if>
+  </gazebo>
+</robot>

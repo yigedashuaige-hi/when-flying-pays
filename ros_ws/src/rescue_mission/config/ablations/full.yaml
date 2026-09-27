@@ -1,0 +1,5 @@
+# Ablation: full (all terms enabled). No overrides — risk_aware uses
+# uncertainty-inflation + two-point CVaR + switch penalty + (optionally) shield.
+# Present so `ablation:=full` is a valid, explicit selection.
+mode_switcher:
+  ablation_tag: full

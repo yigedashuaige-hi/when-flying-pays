@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<sdf version="1.5">
+  <world name="ground_contact_microtest">
+    <plugin name="rotors_ros_interface_plugin"
+            filename="librotors_gazebo_ros_interface_plugin.so" />
+    <plugin name="ground_contact_diagnostic"
+            filename="libground_contact_diagnostic_plugin.so" />
+    <include><uri>model://sun</uri></include>
+    <include><uri>model://ground_plane</uri></include>
+
+    <!-- Identical explicit physics block to disaster_scene_a.world. -->
+    <physics type="ode">
+      <max_step_size>0.001</max_step_size>
+      <real_time_update_rate>1000</real_time_update_rate>
+    </physics>
+
+    <!-- Collision geometry and pose relative to its own frame are identical to
+         Scene A low_barrier; only the world x origin is shifted from 7 to 0. -->
+    <model name="low_barrier">
+      <static>true</static>
+      <pose>0 0 0.35 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>0.30 2.0 0.70</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>0.30 2.0 0.70</size></box></geometry>
+          <material><script><uri>file://media/materials/scripts/gazebo.material</uri><name>Gazebo/Orange</name></script></material>
+        </visual>
+      </link>
+    </model>
+  </world>
+</sdf>

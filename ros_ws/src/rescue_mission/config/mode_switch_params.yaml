@@ -1,0 +1,151 @@
+mode_switcher:
+  initial_mode: GROUND
+  strategy: rule
+  update_rate: 10.0
+  takeoff_duration: 3.0
+  land_duration: 3.5
+  min_air_duration: 4.0
+
+  thresholds:
+    slope_air_deg: 30.0
+    obstacle_air_density: 0.65
+    obstacle_ground_density: 0.85
+    fly_distance: 8.0
+    ground_distance: 2.0
+    slope_fly_min_distance: 3.0
+    return_ground_finish_distance: 3.5
+    battery_takeoff_min: 0.40
+    battery_ground_max: 0.25
+    fixed_switch_interval: 10.0   # seconds between ground/air phases (fixed_switch strategy)
+
+  safety_shield:
+    enabled: true
+    battery_min_air: 0.35
+    landing_obstacle_max: 0.75
+    terrain_blocked_density: 0.90
+    recent_switch_window_sec: 12.0
+    max_switches_in_window: 4
+
+  # Decision-layer reachability supervisor (PR-4). Energies in joules, compared
+  # against /rescue/battery_j. Always monitors; only enforces overrides for the
+  # risk_aware_safety strategy. eta_land uses visibility_confidence as a proxy
+  # for landing-area safety (param name kept generic for a future safety map).
+  safety_supervisor:
+    E_takeoff_j: 11.0
+    E_air_reserve_j: 12.0
+    E_land_j: 12.0
+    E_margin_j: 8.0
+    eta_land: 0.30
+
+  risk_aware:
+    alpha: 0.8
+    k_unc: 1.0
+    C_stuck: 60.0
+    ground_speed: 0.45
+    air_speed: 0.70
+    ground_energy_per_m: 0.35
+    air_energy_per_m: 1.2
+    takeoff_energy_j: 11.0
+    land_energy_j: 12.0
+    switch_penalty: 2.0
+    landing_risk_weight: 10.0
+    wE_g: 1.0
+    wT_g: 0.15
+    wR: 0.45
+    wD: 0.10
+    wS: 1.0
+    wE_a: 1.0
+    wL: 1.0
+    wcvar: 0.75
+
+  energy:
+    fly_k1: 1.0
+    ground_k2: 0.35
+
+mission_state_machine:
+  initial_state: NAVIGATE
+  update_rate: 2.0
+  goal_tolerance: 0.5
+  waypoints:
+    - [2.0, 0.0, 0.0]
+    - [5.0, 1.5, 0.0]
+    - [8.0, -1.0, 0.0]
+    - [10.0, 0.0, 0.0]
+
+ground_goal_controller:
+  update_rate: 20.0
+  goal_tolerance: 0.25
+  max_linear_speed: 0.45
+  max_angular_speed: 1.2
+  linear_gain: 0.7
+  angular_gain: 1.8
+  command_topic: /mecanum/cmd_vel
+  nominal_command_topic: /rescue/ground_cmd_nominal
+  terrain_effects_enabled: false
+  min_traction: 0.20
+  stuck_traction: 0.0
+  terrain_cost_gain: 0.70
+  obstacle_density_gain: 0.35
+  stuck_risk_gain: 0.45
+  stuck_risk_threshold: 0.72
+  stuck_obstacle_threshold: 0.80
+
+scenario_sensor_sim:
+  update_rate: 10.0
+  use_time_script: true
+  # Keep shared perception time-scripted by default so baseline/risk-aware
+  # strategies receive comparable inputs during fairness checks.
+  use_position_script: false
+  slope_event_start: 8.0
+  slope_event_end: 14.0
+  obstacle_event_start: 18.0
+  obstacle_event_end: 28.0
+  slope_zone_x_min: 3.5
+  slope_zone_x_max: 4.8
+  barrier_x_min: 6.2
+  barrier_x_max: 7.8
+  barrier_y_half_width: 1.4
+  base_traversability_uncertainty: 0.05
+  visibility_obstacle_gain: 0.45
+  uncertainty_obstacle_gain: 0.30
+  uncertainty_slope_gain: 0.20
+
+rescue_metrics_logger:
+  update_rate: 5.0
+  model_name: uav_v4
+  mission_timeout_sec: 120.0
+  # Battery as a task-level joule budget (logger is the sole battery owner).
+  # Large default capacity keeps legacy scenes ~full; Scene D overrides these to
+  # a small capacity / low initial_battery to trigger low-battery failure.
+  battery_capacity_j: 2000.0
+  initial_battery: 1.0
+  fly_k1: 1.0
+  ground_k2: 0.35
+  hover_thrust_proxy: 1.0
+  vertical_thrust_gain: 1.0
+  horizontal_thrust_gain: 0.25
+  switch_energy_cost: 0.25
+  # csv_path and strategy_tag are set dynamically by launch file
+
+air_goal_bridge:
+  update_rate: 20.0
+  cruise_altitude: 1.2
+  ground_altitude: 0.0
+  frame_id: world
+  target_topic: /rescue/air_goal
+  rotors_command_pose_topic: /command/pose
+  publish_rotors_command_pose: false
+
+air_mode_stub:
+  update_rate: 10.0
+
+air_motion_executor:
+  model_name: uav_v4
+  goal_topic: /rescue/air_goal
+  update_rate: 30.0
+  cruise_altitude: 1.2
+  takeoff_speed: 0.4
+  land_speed: 0.35
+  air_xy_speed: 0.7
+  ground_altitude: 0.0
+  heading_offset_deg: 0.0

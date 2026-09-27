@@ -1,0 +1,9 @@
+case,current_mode,proposed_mode,available_j,observed_actual_consumption_j,guarded,energy_model,predicted_consumption_j,approved_mode,reserve_j,block_reason,approved_requirement_j,reserve_violation
+sufficient_takeoff,GROUND,TAKEOFF,36500.0,22777.356251,1,rotors_aero_shaft_mechanical_proxy_v1,31400.0,TAKEOFF,5100.0,none,31400.0,0
+sufficient_takeoff,GROUND,TAKEOFF,36500.0,22777.356251,0,rotors_aero_shaft_mechanical_proxy_v1,31400.0,TAKEOFF,5100.0,none,31400.0,0
+near_boundary_safe,GROUND,TAKEOFF,31401.0,22125.478646,1,rotors_aero_shaft_mechanical_proxy_v1,31400.0,TAKEOFF,1.0,none,31400.0,0
+near_boundary_safe,GROUND,TAKEOFF,31401.0,22125.478646,0,rotors_aero_shaft_mechanical_proxy_v1,31400.0,TAKEOFF,1.0,none,31400.0,0
+insufficient_full_envelope_and_landing_reserve,GROUND,TAKEOFF,31300.0,22777.356251,1,rotors_aero_shaft_mechanical_proxy_v1,31400.0,GROUND,-100.0,takeoff_unsafe_low_battery,0.0,0
+insufficient_full_envelope_and_landing_reserve,GROUND,TAKEOFF,31300.0,22777.356251,0,rotors_aero_shaft_mechanical_proxy_v1,31400.0,TAKEOFF,-100.0,takeoff_unsafe_low_battery,31400.0,1
+airborne_low_margin,AIR,AIR,4500.0,3690.05539,1,rotors_aero_shaft_mechanical_proxy_v1,4600.0,LAND,-100.0,air_unsafe_force_land,3690.05539,0
+airborne_low_margin,AIR,AIR,4500.0,3690.05539,0,rotors_aero_shaft_mechanical_proxy_v1,4600.0,AIR,-100.0,air_unsafe_force_land,4600.0,1

@@ -1,0 +1,72 @@
+<?xml version="1.0" ?>
+<sdf version="1.5">
+  <world name="disaster_scene_a">
+    <!-- Transport/ROS bridge is inert for ideal backend and required by RotorS. -->
+    <plugin name="rotors_ros_interface_plugin"
+            filename="librotors_gazebo_ros_interface_plugin.so" />
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <physics type="ode">
+      <max_step_size>0.001</max_step_size>
+      <real_time_update_rate>1000</real_time_update_rate>
+    </physics>
+
+    <model name="simple_wall_left">
+      <static>true</static>
+      <pose>4 1.15 0.35 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>3.2 0.20 0.70</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>3.2 0.20 0.70</size></box></geometry>
+          <material><script><uri>file://media/materials/scripts/gazebo.material</uri><name>Gazebo/Gray</name></script></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="simple_wall_right">
+      <static>true</static>
+      <pose>4 -1.15 0.35 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>3.2 0.20 0.70</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>3.2 0.20 0.70</size></box></geometry>
+          <material><script><uri>file://media/materials/scripts/gazebo.material</uri><name>Gazebo/Gray</name></script></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="low_barrier">
+      <static>true</static>
+      <pose>7 0 0.35 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>0.30 2.0 0.70</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>0.30 2.0 0.70</size></box></geometry>
+          <material><script><uri>file://media/materials/scripts/gazebo.material</uri><name>Gazebo/Orange</name></script></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="victim_marker">
+      <static>true</static>
+      <pose>10 0 0.25 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><cylinder><radius>0.25</radius><length>0.5</length></cylinder></geometry>
+          <material><ambient>1 0 0 1</ambient><diffuse>1 0 0 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+  </world>
+</sdf>

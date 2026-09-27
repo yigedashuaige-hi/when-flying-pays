@@ -1,0 +1,16 @@
+# Phase D2 validation-only conservative RotorS budget.
+# Units are J of modeled aerodynamic shaft mechanical energy proxy, NOT battery
+# electrical energy.  Validated only inside the declared D2 maneuver envelope:
+# height <= 1.5 m, hover <= 5 s, one-way distance <= 1.2 m, speed >= 0.25 m/s.
+mode_switcher:
+  rotors_safety_supervisor:
+    energy_model: rotors_aero_shaft_mechanical_proxy_v1
+    E_takeoff_j: 4900.0
+    E_air_reserve_j: 21900.0
+    E_land_j: 3700.0
+    E_margin_j: 900.0
+    eta_land: 0.30
+
+rescue_metrics_logger:
+  # 31.4 kJ approval floor plus 5.6 kJ headroom for the D2 smoke cases.
+  rotors_mechanical_budget_j: 37000.0

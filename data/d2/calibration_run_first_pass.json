@@ -1,0 +1,877 @@
+{
+  "all_values_finite": true,
+  "backend": "rotors",
+  "date": "2026-07-19",
+  "energy_model": "rotors_aero_shaft_mechanical_proxy_v1",
+  "non_finite_samples": [],
+  "passed": true,
+  "phase": "D2",
+  "plan": [
+    {
+      "distance_m": 0.0,
+      "height_m": 1.0,
+      "hover_s": 2.0,
+      "id": "cal_h10_t2_r1",
+      "split": "calibration",
+      "target_speed_m_s": 0.0
+    },
+    {
+      "distance_m": 0.0,
+      "height_m": 1.0,
+      "hover_s": 2.0,
+      "id": "cal_h10_t2_r2",
+      "split": "calibration",
+      "target_speed_m_s": 0.0
+    },
+    {
+      "distance_m": 0.0,
+      "height_m": 1.0,
+      "hover_s": 5.0,
+      "id": "cal_h10_t5_r1",
+      "split": "calibration",
+      "target_speed_m_s": 0.0
+    },
+    {
+      "distance_m": 0.0,
+      "height_m": 1.0,
+      "hover_s": 5.0,
+      "id": "cal_h10_t5_r2",
+      "split": "calibration",
+      "target_speed_m_s": 0.0
+    },
+    {
+      "distance_m": 0.0,
+      "height_m": 1.5,
+      "hover_s": 2.0,
+      "id": "cal_h15_t2_r1",
+      "split": "calibration",
+      "target_speed_m_s": 0.0
+    },
+    {
+      "distance_m": 0.0,
+      "height_m": 1.5,
+      "hover_s": 2.0,
+      "id": "cal_h15_t2_r2",
+      "split": "calibration",
+      "target_speed_m_s": 0.0
+    },
+    {
+      "distance_m": 0.0,
+      "height_m": 1.5,
+      "hover_s": 5.0,
+      "id": "cal_h15_t5_r1",
+      "split": "calibration",
+      "target_speed_m_s": 0.0
+    },
+    {
+      "distance_m": 0.0,
+      "height_m": 1.5,
+      "hover_s": 5.0,
+      "id": "cal_h15_t5_r2",
+      "split": "calibration",
+      "target_speed_m_s": 0.0
+    },
+    {
+      "distance_m": 0.6,
+      "height_m": 1.0,
+      "hover_s": 3.0,
+      "id": "cal_d06_v025_h10_r1",
+      "split": "calibration",
+      "target_speed_m_s": 0.25
+    },
+    {
+      "distance_m": 0.6,
+      "height_m": 1.0,
+      "hover_s": 3.0,
+      "id": "cal_d06_v025_h10_r2",
+      "split": "calibration",
+      "target_speed_m_s": 0.25
+    },
+    {
+      "distance_m": 1.2,
+      "height_m": 1.5,
+      "hover_s": 3.0,
+      "id": "cal_d12_v045_h15_r1",
+      "split": "calibration",
+      "target_speed_m_s": 0.45
+    },
+    {
+      "distance_m": 1.2,
+      "height_m": 1.5,
+      "hover_s": 3.0,
+      "id": "cal_d12_v045_h15_r2",
+      "split": "calibration",
+      "target_speed_m_s": 0.45
+    },
+    {
+      "distance_m": 0.0,
+      "height_m": 1.0,
+      "hover_s": 3.0,
+      "id": "held_h10_t3_r1",
+      "split": "heldout",
+      "target_speed_m_s": 0.0
+    },
+    {
+      "distance_m": 0.0,
+      "height_m": 1.5,
+      "hover_s": 3.0,
+      "id": "held_h15_t3_r1",
+      "split": "heldout",
+      "target_speed_m_s": 0.0
+    },
+    {
+      "distance_m": 0.9,
+      "height_m": 1.0,
+      "hover_s": 3.0,
+      "id": "held_d09_v030_h10_r1",
+      "split": "heldout",
+      "target_speed_m_s": 0.3
+    },
+    {
+      "distance_m": 0.9,
+      "height_m": 1.0,
+      "hover_s": 3.0,
+      "id": "held_d09_v030_h10_r2",
+      "split": "heldout",
+      "target_speed_m_s": 0.3
+    },
+    {
+      "distance_m": 0.9,
+      "height_m": 1.5,
+      "hover_s": 3.0,
+      "id": "held_d09_v030_h15_r1",
+      "split": "heldout",
+      "target_speed_m_s": 0.3
+    },
+    {
+      "distance_m": 0.9,
+      "height_m": 1.5,
+      "hover_s": 3.0,
+      "id": "held_d09_v030_h15_r2",
+      "split": "heldout",
+      "target_speed_m_s": 0.3
+    }
+  ],
+  "trials": [
+    {
+      "height_m": 1.0,
+      "id": "cal_h10_t2_r1",
+      "passed": true,
+      "split": "calibration",
+      "stages": [
+        {
+          "name": "takeoff",
+          "passed": true,
+          "position": [
+            0.002021775810681424,
+            3.9684165350743156e-05,
+            1.0364634832895405
+          ]
+        },
+        {
+          "duration_s": 2.0,
+          "name": "hover",
+          "passed": true
+        },
+        {
+          "disarmed": true,
+          "name": "landing_disarm",
+          "passed": true,
+          "position": [
+            0.0020324557701143836,
+            5.709602242926455e-05,
+            0.0658721423226407
+          ]
+        }
+      ]
+    },
+    {
+      "height_m": 1.0,
+      "id": "cal_h10_t2_r2",
+      "passed": true,
+      "split": "calibration",
+      "stages": [
+        {
+          "name": "takeoff",
+          "passed": true,
+          "position": [
+            0.0019983586557536397,
+            7.975575959624758e-05,
+            1.0369138293128468
+          ]
+        },
+        {
+          "duration_s": 2.0,
+          "name": "hover",
+          "passed": true
+        },
+        {
+          "disarmed": true,
+          "name": "landing_disarm",
+          "passed": true,
+          "position": [
+            0.0019981337656976694,
+            7.688263891609191e-05,
+            0.06587206213665411
+          ]
+        }
+      ]
+    },
+    {
+      "height_m": 1.0,
+      "id": "cal_h10_t5_r1",
+      "passed": true,
+      "split": "calibration",
+      "stages": [
+        {
+          "name": "takeoff",
+          "passed": true,
+          "position": [
+            0.0019709251050951206,
+            9.17651417370001e-05,
+            1.0369741576443385
+          ]
+        },
+        {
+          "duration_s": 5.0,
+          "name": "hover",
+          "passed": true
+        },
+        {
+          "disarmed": true,
+          "name": "landing_disarm",
+          "passed": true,
+          "position": [
+            0.001965254227440605,
+            9.35219472632292e-05,
+            0.06586718970163184
+          ]
+        }
+      ]
+    },
+    {
+      "height_m": 1.0,
+      "id": "cal_h10_t5_r2",
+      "passed": true,
+      "split": "calibration",
+      "stages": [
+        {
+          "name": "takeoff",
+          "passed": true,
+          "position": [
+            0.0019320969678009686,
+            0.0001220104895140236,
+            1.0363431031854478
+          ]
+        },
+        {
+          "duration_s": 5.0,
+          "name": "hover",
+          "passed": true
+        },
+        {
+          "disarmed": true,
+          "name": "landing_disarm",
+          "passed": true,
+          "position": [
+            0.0019367230438929156,
+            0.0001235059464816457,
+            0.06587205783827026
+          ]
+        }
+      ]
+    },
+    {
+      "height_m": 1.5,
+      "id": "cal_h15_t2_r1",
+      "passed": true,
+      "split": "calibration",
+      "stages": [
+        {
+          "name": "takeoff",
+          "passed": true,
+          "position": [
+            0.0019027320819168382,
+            0.0001444949536549671,
+            1.5170713841210643
+          ]
+        },
+        {
+          "duration_s": 2.0,
+          "name": "hover",
+          "passed": true
+        },
+        {
+          "disarmed": true,
+          "name": "landing_disarm",
+          "passed": true,
+          "position": [
+            0.0019138538603137838,
+            0.0001445213574308333,
+            0.06586787569575815
+          ]
+        }
+      ]
+    },
+    {
+      "height_m": 1.5,
+      "id": "cal_h15_t2_r2",
+      "passed": true,
+      "split": "calibration",
+      "stages": [
+        {
+          "name": "takeoff",
+          "passed": true,
+          "position": [
+            0.0018883106278992207,
+            0.00015329009999497375,
+            1.5175842638182817
+          ]
+        },
+        {
+          "duration_s": 2.0,
+          "name": "hover",
+          "passed": true
+        },
+        {
+          "disarmed": true,
+          "name": "landing_disarm",
+          "passed": true,
+          "position": [
+            0.0018906245872856108,
+            0.0001639344993228633,
+            0.0658716299328772
+          ]
+        }
+      ]
+    },
+    {
+      "height_m": 1.5,
+      "id": "cal_h15_t5_r1",
+      "passed": true,
+      "split": "calibration",
+      "stages": [
+        {
+          "name": "takeoff",
+          "passed": true,
+          "position": [
+            0.0018453348584302892,
+            0.00020208993061000558,
+            1.5170966852562602
+          ]
+        },
+        {
+          "duration_s": 5.0,
+          "name": "hover",
+          "passed": true
+        },
+        {
+          "disarmed": true,
+          "name": "landing_disarm",
+          "passed": true,
+          "position": [
+            0.001859395155820741,
+            0.00018343812944543157,
+            0.06587205783826947
+          ]
+        }
+      ]
+    },
+    {
+      "height_m": 1.5,
+      "id": "cal_h15_t5_r2",
+      "passed": true,
+      "split": "calibration",
+      "stages": [
+        {
+          "name": "takeoff",
+          "passed": true,
+          "position": [
+            0.0018268405641886868,
+            0.00020584507508885198,
+            1.517155085378858
+          ]
+        },
+        {
+          "duration_s": 5.0,
+          "name": "hover",
+          "passed": true
+        },
+        {
+          "disarmed": true,
+          "name": "landing_disarm",
+          "passed": true,
+          "position": [
+            0.0018345392930616137,
+            0.00021109917576316218,
+            0.06587205783827065
+          ]
+        }
+      ]
+    },
+    {
+      "height_m": 1.0,
+      "id": "cal_d06_v025_h10_r1",
+      "passed": true,
+      "split": "calibration",
+      "stages": [
+        {
+          "name": "takeoff",
+          "passed": true,
+          "position": [
+            0.001801166681080193,
+            0.00023461149684494596,
+            1.0364677831962188
+          ]
+        },
+        {
+          "duration_s": 3.0,
+          "name": "hover",
+          "passed": true
+        },
+        {
+          "name": "translation",
+          "passed": true,
+          "target": [
+            0.6018345392930059,
+            0.0002110991757625988,
+            1.0
+          ]
+        },
+        {
+          "name": "return",
+          "passed": true,
+          "target": [
+            0.0018345392930058807,
+            0.0002110991757625988,
+            1.0
+          ]
+        },
+        {
+          "disarmed": true,
+          "name": "landing_disarm",
+          "passed": true,
+          "position": [
+            -0.016830025507567212,
+            2.8393403249119078e-05,
+            0.06587206674339167
+          ]
+        }
+      ]
+    },
+    {
+      "height_m": 1.0,
+      "id": "cal_d06_v025_h10_r2",
+      "passed": true,
+      "split": "calibration",
+      "stages": [
+        {
+          "name": "takeoff",
+          "passed": true,
+          "position": [
+            -0.01686459142827747,
+            1.030584131706224e-05,
+            1.0363629491996862
+          ]
+        },
+        {
+          "duration_s": 3.0,
+          "name": "hover",
+          "passed": true
+        },
+        {
+          "name": "translation",
+          "passed": true,
+          "target": [
+            0.5831736807915199,
+            2.6544526378509755e-05,
+            1.0
+          ]
+        },
+        {
+          "name": "return",
+          "passed": true,
+          "target": [
+            -0.016826319208480135,
+            2.6544526378509755e-05,
+            1.0
+          ]
+        },
+        {
+          "disarmed": true,
+          "name": "landing_disarm",
+          "passed": true,
+          "position": [
+            -0.031240371130892428,
+            -0.00041495299701603604,
+            0.06587205783827092
+          ]
+        }
+      ]
+    },
+    {
+      "height_m": 1.5,
+      "id": "cal_d12_v045_h15_r1",
+      "passed": true,
+      "split": "calibration",
+      "stages": [
+        {
+          "name": "takeoff",
+          "passed": true,
+          "position": [
+            -0.0312728541498287,
+            -0.0003924305899122436,
+            1.5170593969664299
+          ]
+        },
+        {
+          "duration_s": 3.0,
+          "name": "hover",
+          "passed": true
+        },
+        {
+          "name": "translation",
+          "passed": true,
+          "target": [
+            1.1687596288690523,
+            -0.00041495299701658204,
+            1.5
+          ]
+        },
+        {
+          "name": "return",
+          "passed": true,
+          "target": [
+            -0.031240371130947592,
+            -0.00041495299701658204,
+            1.5
+          ]
+        },
+        {
+          "disarmed": true,
+          "name": "landing_disarm",
+          "passed": true,
+          "position": [
+            0.033778004507910686,
+            0.0005440265163701137,
+            0.06587205783827124
+          ]
+        }
+      ]
+    },
+    {
+      "height_m": 1.5,
+      "id": "cal_d12_v045_h15_r2",
+      "passed": true,
+      "split": "calibration",
+      "stages": [
+        {
+          "name": "takeoff",
+          "passed": true,
+          "position": [
+            0.0337437095010215,
+            0.000564792116680038,
+            1.5170933020521913
+          ]
+        },
+        {
+          "duration_s": 3.0,
+          "name": "hover",
+          "passed": true
+        },
+        {
+          "name": "translation",
+          "passed": true,
+          "target": [
+            1.2337780045078546,
+            0.00054402651636953,
+            1.5
+          ]
+        },
+        {
+          "name": "return",
+          "passed": true,
+          "target": [
+            0.03377800450785458,
+            0.00054402651636953,
+            1.5
+          ]
+        },
+        {
+          "disarmed": true,
+          "name": "landing_disarm",
+          "passed": true,
+          "position": [
+            0.01824790664976146,
+            0.0011339939124245593,
+            0.06587205783827144
+          ]
+        }
+      ]
+    },
+    {
+      "height_m": 1.0,
+      "id": "held_h10_t3_r1",
+      "passed": true,
+      "split": "heldout",
+      "stages": [
+        {
+          "name": "takeoff",
+          "passed": true,
+          "position": [
+            0.018213360534856317,
+            0.0011563148565414951,
+            1.0368036780973973
+          ]
+        },
+        {
+          "duration_s": 3.0,
+          "name": "hover",
+          "passed": true
+        },
+        {
+          "disarmed": true,
+          "name": "landing_disarm",
+          "passed": true,
+          "position": [
+            0.018220044691353333,
+            0.0011601037277379834,
+            0.06587205783827116
+          ]
+        }
+      ]
+    },
+    {
+      "height_m": 1.5,
+      "id": "held_h15_t3_r1",
+      "passed": true,
+      "split": "heldout",
+      "stages": [
+        {
+          "name": "takeoff",
+          "passed": true,
+          "position": [
+            0.018187569408525756,
+            0.0011826010827993407,
+            1.5170732908508078
+          ]
+        },
+        {
+          "duration_s": 3.0,
+          "name": "hover",
+          "passed": true
+        },
+        {
+          "disarmed": true,
+          "name": "landing_disarm",
+          "passed": true,
+          "position": [
+            0.01818847161210669,
+            0.001180587525876018,
+            0.06587205783827035
+          ]
+        }
+      ]
+    },
+    {
+      "height_m": 1.0,
+      "id": "held_d09_v030_h10_r1",
+      "passed": true,
+      "split": "heldout",
+      "stages": [
+        {
+          "name": "takeoff",
+          "passed": true,
+          "position": [
+            0.018154412710875884,
+            0.0012034944227111558,
+            1.0369198448502959
+          ]
+        },
+        {
+          "duration_s": 3.0,
+          "name": "hover",
+          "passed": true
+        },
+        {
+          "name": "translation",
+          "passed": true,
+          "target": [
+            0.9181884716120501,
+            0.0011805875258753904,
+            1.0
+          ]
+        },
+        {
+          "name": "return",
+          "passed": true,
+          "target": [
+            0.018188471612050096,
+            0.0011805875258753904,
+            1.0
+          ]
+        },
+        {
+          "disarmed": true,
+          "name": "landing_disarm",
+          "passed": true,
+          "position": [
+            0.08103497249135244,
+            0.00216079407109922,
+            0.06586977924020637
+          ]
+        }
+      ]
+    },
+    {
+      "height_m": 1.0,
+      "id": "held_d09_v030_h10_r2",
+      "passed": true,
+      "split": "heldout",
+      "stages": [
+        {
+          "name": "takeoff",
+          "passed": true,
+          "position": [
+            0.08100973779261196,
+            0.002189757563364767,
+            1.036915714938265
+          ]
+        },
+        {
+          "duration_s": 3.0,
+          "name": "hover",
+          "passed": true
+        },
+        {
+          "name": "translation",
+          "passed": true,
+          "target": [
+            0.9810361443176431,
+            0.0021600298021627793,
+            1.0
+          ]
+        },
+        {
+          "name": "return",
+          "passed": true,
+          "target": [
+            0.08103614431764307,
+            0.0021600298021627793,
+            1.0
+          ]
+        },
+        {
+          "disarmed": true,
+          "name": "landing_disarm",
+          "passed": true,
+          "position": [
+            0.06323824261324469,
+            0.002224975375662439,
+            0.06587205783827137
+          ]
+        }
+      ]
+    },
+    {
+      "height_m": 1.5,
+      "id": "held_d09_v030_h15_r1",
+      "passed": true,
+      "split": "heldout",
+      "stages": [
+        {
+          "name": "takeoff",
+          "passed": true,
+          "position": [
+            0.06320397729098812,
+            0.002245774618627686,
+            1.5170252982439745
+          ]
+        },
+        {
+          "duration_s": 3.0,
+          "name": "hover",
+          "passed": true
+        },
+        {
+          "name": "translation",
+          "passed": true,
+          "target": [
+            0.9632382426131891,
+            0.0022249753756616916,
+            1.5
+          ]
+        },
+        {
+          "name": "return",
+          "passed": true,
+          "target": [
+            0.06323824261318917,
+            0.0022249753756616916,
+            1.5
+          ]
+        },
+        {
+          "disarmed": true,
+          "name": "landing_disarm",
+          "passed": true,
+          "position": [
+            0.04623473154899685,
+            0.0023990025055065415,
+            0.06587211019721861
+          ]
+        }
+      ]
+    },
+    {
+      "height_m": 1.5,
+      "id": "held_d09_v030_h15_r2",
+      "passed": true,
+      "split": "heldout",
+      "stages": [
+        {
+          "name": "takeoff",
+          "passed": true,
+          "position": [
+            0.04620216970971169,
+            0.0024000082070418935,
+            1.5171056815980368
+          ]
+        },
+        {
+          "duration_s": 3.0,
+          "name": "hover",
+          "passed": true
+        },
+        {
+          "name": "translation",
+          "passed": true,
+          "target": [
+            0.9462383044451481,
+            0.0023979051316831176,
+            1.5
+          ]
+        },
+        {
+          "name": "return",
+          "passed": true,
+          "target": [
+            0.04623830444514812,
+            0.0023979051316831176,
+            1.5
+          ]
+        },
+        {
+          "disarmed": true,
+          "name": "landing_disarm",
+          "passed": true,
+          "position": [
+            0.028323632934267404,
+            0.002528912143733973,
+            0.06587205783827176
+          ]
+        }
+      ]
+    }
+  ]
+}

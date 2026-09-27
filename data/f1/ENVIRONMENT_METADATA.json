@@ -1,0 +1,19 @@
+{
+  "experiment_start_date": "2026-08-21",
+  "experiment_completion_date": "2026-08-22",
+  "timezone": "Asia/Shanghai",
+  "container_name": "uav_noetic",
+  "container_image_tag": "edu_demo:v1",
+  "container_image_sha256": "85592064297803dd6512f3f2070b38446253d280e2a0395ca7745d4298b05fd7",
+  "ros_distro": "noetic",
+  "roslaunch_version": "1.17.4",
+  "gazebo_version": "11.15.1",
+  "python_version": "3.8.10",
+  "scipy_version": "1.5.4",
+  "matplotlib_version": "3.5.3",
+  "host_kernel": "Linux 7.0.0-28-generic x86_64",
+  "backend": "ideal_set_model_state",
+  "energy_model": "legacy_task_distance_hover_proxy_v1",
+  "rotors_started": false,
+  "canonical_latest_csv_write": false
+}

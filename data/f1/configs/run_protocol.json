@@ -1,0 +1,18 @@
+{
+  "launch": "rescue_mission/rescue_phase1_demo.launch",
+  "air_backend": "ideal",
+  "backend_manifest_label": "ideal_set_model_state",
+  "stuck_model": "recoverable",
+  "mission_timeout_sim_s": 85.0,
+  "launch_wall_timeout_s": 130.0,
+  "minimum_valid_sim_duration_s": 30.0,
+  "runs_per_candidate_seed": 1,
+  "gui": false,
+  "headless": true,
+  "paused": false,
+  "heteroscedastic": false,
+  "initial_battery": -1.0,
+  "fly_k1": -1.0,
+  "result_isolation": "one runs_dir and latest_csv_path per scene/family/candidate/seed",
+  "canonical_latest_csv_write": false
+}

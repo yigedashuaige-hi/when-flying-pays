@@ -1,0 +1,17 @@
+{
+  "case_count": 448,
+  "compared_fields": [
+    "approved",
+    "shield_override_count",
+    "unsafe_action_count",
+    "irreversible_failure",
+    "entered_unrecoverable_set",
+    "override_reason",
+    "safe_landing_margin_j",
+    "recoverability_margin"
+  ],
+  "date": "2026-07-19",
+  "mismatch_count": 0,
+  "mismatches": [],
+  "passed": true
+}

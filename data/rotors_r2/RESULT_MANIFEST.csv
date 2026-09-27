@@ -1,0 +1,11 @@
+artifact,role,backend,scene,policy,seed,stuck_model,source_or_derivation,interpretation
+scene_a_frozen/run_1/scene_a_e1a_r2.bag,primary full-rate run evidence,rotors,scene_a,fixed_switch,20260720,recoverable,recorded ROS topics during the single frozen run,one post-freeze engineering case
+scene_a_frozen/run_1/roslaunch.log,launch and event log,rotors,scene_a,fixed_switch,20260720,recoverable,direct roslaunch stdout/stderr,outer status 124 occurred after DONE and final disarm
+scene_a_frozen/run_1/rosbag.log,bag recorder log,rotors,scene_a,fixed_switch,20260720,recoverable,direct rosbag stdout/stderr,archival evidence
+scene_a_frozen/run_1/R2_BAG_AUDIT.json,acceptance audit,rotors,scene_a,fixed_switch,20260720,recoverable,analyze_scene_a_r2_bag.py over full bag,no population success-rate claim
+scene_a_frozen/run_1/R2_MISSION_SUMMARY.csv,compact acceptance table,rotors,scene_a,fixed_switch,20260720,recoverable,derived only from full bag,no replacement for canonical Stage 0 CSV
+scene_a_frozen/run_1/R2_EVENT_TIMELINE.csv,event-edge table,rotors,scene_a,fixed_switch,20260720,recoverable,derived only from full bag,source for report and Fig. 5
+scene_a_frozen/run_1/R2_PAPER_TRACE_10HZ.csv,deterministic paper trace,rotors,scene_a,fixed_switch,20260720,recoverable,10-Hz odometry/state sample derived only from full bag,source for Fig. 5
+isolated/final_reposition_6x1,accepted reposition matrix,rotors,isolated,n/a,n/a,n/a,six scripted isolation cases,engineering contract tests only
+isolated/sampled_regressions,accepted sampled regression matrix,rotors,isolated,n/a,n/a,n/a,handoff clearance and contact regressions,engineering contract tests only
+PHASE_E1A_R2_FULL_SCENE_A_REPORT_20260828.md,final R2 report,mixed,scene_a,fixed_switch,20260720,recoverable,all artifacts above and frozen-source hashes,bounded claims

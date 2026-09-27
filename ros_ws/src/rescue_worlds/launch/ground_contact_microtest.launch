@@ -1,0 +1,42 @@
+<launch>
+  <arg name="gui" default="false" />
+  <arg name="headless" default="true" />
+  <arg name="output_csv" default="/tmp/ground_contact_microtest.csv" />
+  <arg name="x" default="-1.0" />
+  <arg name="y" default="0.0" />
+  <arg name="z" default="0.15" />
+  <arg name="roll" default="0.0" />
+  <arg name="pitch" default="0.0" />
+  <arg name="yaw" default="0.0" />
+  <arg name="duration" default="4.0" />
+  <arg name="settle" default="0.5" />
+  <arg name="vx" default="0.45" />
+  <arg name="vy" default="0.0" />
+  <arg name="wz" default="0.0" />
+  <arg name="release_at" default="-1.0" />
+
+  <env name="GAZEBO_MODEL_PATH"
+       value="$(optenv CATKIN_WS /workspace/ros_ws)/src:$(optenv CATKIN_WS /workspace/ros_ws)/src/rotors_simulator/rotors_gazebo/models:$(optenv GAZEBO_MODEL_PATH)" />
+  <env name="GAZEBO_PLUGIN_PATH"
+       value="$(optenv CATKIN_WS /workspace/ros_ws)/devel/lib:/opt/ros/noetic/lib:$(optenv GAZEBO_PLUGIN_PATH)" />
+  <env name="GROUND_CONTACT_DIAG_CSV" value="$(arg output_csv)" />
+  <env name="GROUND_DRIVE_DIAG_CSV" value="$(arg output_csv).drive.csv" />
+
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find rescue_worlds)/worlds/ground_contact_microtest.world" />
+    <arg name="paused" value="true" />
+    <arg name="use_sim_time" value="true" />
+    <arg name="gui" value="$(arg gui)" />
+    <arg name="headless" value="$(arg headless)" />
+  </include>
+
+  <param name="uav_v4_contact_description"
+         command="$(find xacro)/xacro '$(find uav_v4)/urdf/uav_v4_rotors_native.urdf.xacro' ground_structure:=true ground_plugin:=true" />
+  <node name="spawn_uav_v4" pkg="gazebo_ros" type="spawn_model"
+        args="-param uav_v4_contact_description -urdf -model uav_v4 -x $(arg x) -y $(arg y) -z $(arg z) -R $(arg roll) -P $(arg pitch) -Y $(arg yaw)"
+        output="screen" />
+
+  <node pkg="rescue_worlds" type="ground_contact_microtest_driver.py"
+        name="ground_contact_microtest_driver" output="screen" required="true"
+        args="--duration $(arg duration) --settle $(arg settle) --vx $(arg vx) --vy $(arg vy) --wz $(arg wz) --release-at $(arg release_at)" />
+</launch>

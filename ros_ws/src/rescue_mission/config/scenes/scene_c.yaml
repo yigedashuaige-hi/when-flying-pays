@@ -1,0 +1,29 @@
+mission_state_machine:
+  waypoints:
+    - [2.0, 0.0, 0.0]
+    - [4.5, 1.2, 0.0]
+    - [7.0, 0.0, 0.0]
+    - [9.5, -1.0, 0.0]
+    - [11.0, 0.0, 0.0]
+
+ground_goal_controller:
+  terrain_effects_enabled: true
+  min_traction: 0.08
+  stuck_traction: 0.0
+  terrain_cost_gain: 0.90
+  obstacle_density_gain: 0.55
+  stuck_risk_gain: 0.70
+  stuck_risk_threshold: 0.60
+  stuck_obstacle_threshold: 0.82
+
+scenario_sensor_sim:
+  use_time_script: false
+  use_position_script: true
+  base_obstacle_density: 0.12
+  slope_zone_deg: 38.0
+  barrier_obstacle_density: 0.95
+  slope_zone_x_min: 3.0
+  slope_zone_x_max: 5.2
+  barrier_x_min: 5.8
+  barrier_x_max: 8.4
+  barrier_y_half_width: 2.0

@@ -1,0 +1,13 @@
+Paired significance: risk_aware (treatment) vs energy_rule (baseline)  scene=scene_sparse
+strategies in file: ['energy_rule', 'risk_aware']
+
+Wilcoxon signed-rank (continuous, paired by seed):
+  stuck_event_count    n=10 identical (treat=0.000 base=0.000) p=1.000 (no difference)
+  total_energy_j       n=10 treat=258.380 base=7.292 median_diff=+264.271 95%CI[+235.557,+268.213] rank_biserial=+1.000 p=0.001953 [treat_lower:0 higher:10 tie:0]
+  slip_ratio           n=10 treat=0.150 base=0.178 median_diff=-0.021 95%CI[-0.055,-0.010] rank_biserial=-0.782 p=0.02734 [treat_lower:9 higher:1 tie:0]
+  total_time_s         n=10 treat=59.940 base=47.720 median_diff=+13.000 95%CI[+10.800,+13.400] rank_biserial=+1.000 p=0.001953 [treat_lower:0 higher:10 tie:0]
+
+McNemar (binary, paired by seed):
+  success              n=10 treat_rate=1.00 base_rate=1.00 discordant(b=0,c=0) p=1.000
+  timeout              n=10 treat_rate=0.00 base_rate=0.00 discordant(b=0,c=0) p=1.000
+  irreversible_failure n=10 treat_rate=0.00 base_rate=0.00 discordant(b=0,c=0) p=1.000

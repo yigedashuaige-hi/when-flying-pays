@@ -1,0 +1,986 @@
+<!-- DO NOT EDIT: Generated from iris.sdf.jinja -->
+<sdf version='1.6'>
+  <model name='iris'>
+    <link name='base_link'>
+      <pose>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 0 0</pose>
+        <mass>2.5</mass>
+        <inertia>
+          <ixx>0.029125</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.029125</iyy>
+          <iyz>0</iyz>
+          <izz>0.055225</izz>
+        </inertia>
+      </inertial>
+      <collision name='base_link_inertia_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.47 0.47 0.11</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <ode>
+              <min_depth>0.001</min_depth>
+              <max_vel>0</max_vel>
+            </ode>
+          </contact>
+          <friction>
+            <ode/>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='base_link_inertia_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://uav_v4/meshes/base_link.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/DarkGrey</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+        </material>
+      </visual>
+      <gravity>1</gravity>
+      <velocity_decay/>
+    </link>
+    <link name='/imu_link'>
+      <pose>0 0 0.02 0 0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 0 0</pose>
+        <mass>0.015</mass>
+        <inertia>
+          <ixx>1e-05</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>1e-05</iyy>
+          <iyz>0</iyz>
+          <izz>1e-05</izz>
+        </inertia>
+      </inertial>
+    </link>
+    <joint name='/imu_joint' type='revolute'>
+      <child>/imu_link</child>
+      <parent>base_link</parent>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>0</lower>
+          <upper>0</upper>
+          <effort>0</effort>
+          <velocity>0</velocity>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+        <use_parent_model_frame>1</use_parent_model_frame>
+      </axis>
+    </joint>
+    <joint name='arm1_joint' type='fixed'>
+      <pose relative_to='base_link'>0.0475 -0.0455 0.04 0 -0 0</pose>
+      <parent>base_link</parent>
+      <child>arm1_link</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>1</effort>
+          <velocity>1</velocity>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='arm1_link'>
+      <pose relative_to='arm1_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0.029359 -0.029033 0.001856 0 -0 0</pose>
+        <mass>0.010108</mass>
+        <inertia>
+          <ixx>3.6495e-06</ixx>
+          <ixy>3.4138e-06</ixy>
+          <ixz>-5.9914e-21</ixz>
+          <iyy>3.7257e-06</iyy>
+          <iyz>6.4916e-21</iyz>
+          <izz>7.3601e-06</izz>
+        </inertia>
+      </inertial>
+      <collision name='arm1_link_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://uav_v4/meshes/arm1_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='arm1_link_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://uav_v4/meshes/arm1_link.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='arm2_joint' type='fixed'>
+      <pose relative_to='base_link'>-0.0475 0.0455 0.04 0 -0 0</pose>
+      <parent>base_link</parent>
+      <child>arm2_link</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>1</effort>
+          <velocity>1</velocity>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='arm2_link'>
+      <pose relative_to='arm2_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>-0.029296 0.028971 0.001856 0 -0 0</pose>
+        <mass>0.0101076</mass>
+        <inertia>
+          <ixx>3.6495e-06</ixx>
+          <ixy>3.4138e-06</ixy>
+          <ixz>-5.9914e-21</ixz>
+          <iyy>3.7257e-06</iyy>
+          <iyz>6.4916e-21</iyz>
+          <izz>7.3601e-06</izz>
+        </inertia>
+      </inertial>
+      <collision name='arm2_link_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://uav_v4/meshes/arm2_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='arm2_link_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://uav_v4/meshes/arm2_link.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='arm3_joint' type='fixed'>
+      <pose relative_to='base_link'>0.0475 0.0455 0.04 0 -0 0</pose>
+      <parent>base_link</parent>
+      <child>arm3_link</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>1</effort>
+          <velocity>1</velocity>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='arm3_link'>
+      <pose relative_to='arm3_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0.029033 0.029359 0.001856 0 -0 0</pose>
+        <mass>0.010108</mass>
+        <inertia>
+          <ixx>3.6495e-06</ixx>
+          <ixy>3.4138e-06</ixy>
+          <ixz>-5.9914e-21</ixz>
+          <iyy>3.7257e-06</iyy>
+          <iyz>6.4916e-21</iyz>
+          <izz>7.3601e-06</izz>
+        </inertia>
+      </inertial>
+      <collision name='arm3_link_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://uav_v4/meshes/arm3_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='arm3_link_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://uav_v4/meshes/arm3_link.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='arm4_joint' type='fixed'>
+      <pose relative_to='base_link'>-0.0475 -0.0455 0.04 0 -0 0</pose>
+      <parent>base_link</parent>
+      <child>arm4_link</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>1</effort>
+          <velocity>1</velocity>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='arm4_link'>
+      <pose relative_to='arm4_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>-0.029033 -0.029359 0.001856 0 -0 0</pose>
+        <mass>0.010108</mass>
+        <inertia>
+          <ixx>3.6495e-06</ixx>
+          <ixy>3.4138e-06</ixy>
+          <ixz>-5.9914e-21</ixz>
+          <iyy>3.7257e-06</iyy>
+          <iyz>6.4916e-21</iyz>
+          <izz>7.3601e-06</izz>
+        </inertia>
+      </inertial>
+      <collision name='arm4_link_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://uav_v4/meshes/arm4_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='arm4_link_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://uav_v4/meshes/arm4_link.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='wing1_joint' type='revolute'>
+      <pose relative_to='arm1_link'>0.057004 -0.05632 0.0293 0 -0 0</pose>
+      <parent>arm1_link</parent>
+      <child>wing1_link</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+        <use_parent_model_frame>1</use_parent_model_frame>
+      </axis>
+    </joint>
+    <link name='wing1_link'>
+      <pose relative_to='wing1_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 0 0</pose>
+        <mass>0.005</mass>
+        <inertia>
+          <ixx>1.0711e-05</ixx>
+          <ixy>-2.2212e-10</ixy>
+          <ixz>-2.8595e-11</ixz>
+          <iyy>1.0711e-05</iyy>
+          <iyz>-9.5706e-11</iyz>
+          <izz>1.5206e-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='wing1_link_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <length>0.005</length>
+            <radius>0.128</radius>
+          </cylinder>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode/>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='wing1_link_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://uav_v4/meshes/wing1_link.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/Blue</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+        </material>
+      </visual>
+      <gravity>1</gravity>
+      <velocity_decay/>
+    </link>
+
+    <joint name='wing2_joint' type='revolute'>
+      <pose relative_to='arm2_link'>-0.056745 0.056256 0.0293 0 -0 0</pose>
+      <parent>arm2_link</parent>
+      <child>wing2_link</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+        <use_parent_model_frame>1</use_parent_model_frame>
+      </axis>
+    </joint>
+    <link name='wing2_link'>
+      <pose relative_to='wing2_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 0 0</pose>
+        <mass>0.005</mass>
+        <inertia>
+          <ixx>1.0711e-05</ixx>
+          <ixy>-2.2212e-10</ixy>
+          <ixz>-2.8595e-11</ixz>
+          <iyy>1.0711e-05</iyy>
+          <iyz>-9.5706e-11</iyz>
+          <izz>1.5206e-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='wing2_link_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <length>0.005</length>
+            <radius>0.128</radius>
+          </cylinder>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode/>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='wing2_link_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://uav_v4/meshes/wing2_link.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/DarkGrey</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+        </material>
+      </visual>
+      <gravity>1</gravity>
+      <velocity_decay/>
+    </link>
+    <joint name='wing3_joint' type='revolute'>
+      <pose relative_to='arm3_link'>0.056119 0.056844 0.0293 0 -0 0</pose>
+      <parent>arm3_link</parent>
+      <child>wing3_link</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+        <use_parent_model_frame>1</use_parent_model_frame>
+      </axis>
+    </joint>
+    <link name='wing3_link'>
+      <pose relative_to='wing3_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 0 0</pose>
+        <mass>0.005</mass>
+        <inertia>
+          <ixx>1.0711e-05</ixx>
+          <ixy>-2.2212e-10</ixy>
+          <ixz>-2.8595e-11</ixz>
+          <iyy>1.0711e-05</iyy>
+          <iyz>-9.5706e-11</iyz>
+          <izz>1.5206e-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='wing3_link_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <length>0.005</length>
+            <radius>0.128</radius>
+          </cylinder>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode/>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='wing3_link_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://uav_v4/meshes/wing3_link.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/Blue</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+        </material>
+      </visual>
+      <gravity>1</gravity>
+      <velocity_decay/>
+    </link>
+    <joint name='wing4_joint' type='revolute'>
+      <pose relative_to='arm4_link'>-0.056169 -0.056994 0.0293 0 -0 0</pose>
+      <parent>arm4_link</parent>
+      <child>wing4_link</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+        <use_parent_model_frame>1</use_parent_model_frame>
+      </axis>
+    </joint>
+    <link name='wing4_link'>
+      <pose relative_to='wing4_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 0 0</pose>
+        <mass>0.005</mass>
+        <inertia>
+          <ixx>1.0711e-05</ixx>
+          <ixy>-2.2212e-10</ixy>
+          <ixz>-2.8595e-11</ixz>
+          <iyy>1.0711e-05</iyy>
+          <iyz>-9.5706e-11</iyz>
+          <izz>1.5206e-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='wing4_link_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <length>0.005</length>
+            <radius>0.128</radius>
+          </cylinder>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode/>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='wing4_link_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://uav_v4/meshes/wing4_link.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/DarkGrey</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+        </material>
+      </visual>
+      <gravity>1</gravity>
+      <velocity_decay/>
+    </link>
+
+    <joint name='wheel1_joint' type='revolute'>
+      <pose relative_to='base_link'>0.04 -0.088 -0.015 0 -0 0</pose>
+      <parent>base_link</parent>
+      <child>wheel1_link</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='wheel1_link'>
+      <pose relative_to='wheel1_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>-0 0.015781 -0 0 -0 0</pose>
+        <mass>0.037807</mass>
+        <inertia>
+          <ixx>4.513e-06</ixx>
+          <ixy>-1.3203e-21</ixy>
+          <ixz>-1.8003e-20</ixz>
+          <iyy>5.9992e-06</iyy>
+          <iyz>-1.2489e-21</iyz>
+          <izz>4.513e-06</izz>
+        </inertia>
+      </inertial>
+      <collision name='wheel1_link_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://uav_v4/meshes/wheel1_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='wheel1_link_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://uav_v4/meshes/wheel1_link.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='wheel2_joint' type='revolute'>
+      <pose relative_to='base_link'>-0.04 -0.088 -0.015 0 -0 0</pose>
+      <parent>base_link</parent>
+      <child>wheel2_link</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='wheel2_link'>
+      <pose relative_to='wheel2_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 0.015781 -0 0 -0 0</pose>
+        <mass>0.037807</mass>
+        <inertia>
+          <ixx>4.513e-06</ixx>
+          <ixy>-1.3756e-21</ixy>
+          <ixz>-1.8281e-20</ixz>
+          <iyy>5.9992e-06</iyy>
+          <iyz>-1.5307e-21</iyz>
+          <izz>4.513e-06</izz>
+        </inertia>
+      </inertial>
+      <collision name='wheel2_link_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://uav_v4/meshes/wheel2_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='wheel2_link_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://uav_v4/meshes/wheel2_link.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='wheel3_joint' type='revolute'>
+      <pose relative_to='base_link'>0.04 0.088 -0.015 0 -0 0</pose>
+      <parent>base_link</parent>
+      <child>wheel3_link</child>
+      <axis>
+        <xyz>0 -1 0</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='wheel3_link'>
+      <pose relative_to='wheel3_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>-0 -0.015781 0 0 -0 0</pose>
+        <mass>0.037807</mass>
+        <inertia>
+          <ixx>4.513e-06</ixx>
+          <ixy>1.413e-21</ixy>
+          <ixz>1.0661e-20</ixz>
+          <iyy>5.9992e-06</iyy>
+          <iyz>-7.3807e-22</iyz>
+          <izz>4.513e-06</izz>
+        </inertia>
+      </inertial>
+      <collision name='wheel3_link_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://uav_v4/meshes/wheel3_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='wheel3_link_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://uav_v4/meshes/wheel3_link.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='wheel4_joint' type='revolute'>
+      <pose relative_to='base_link'>-0.04 0.088 -0.015 0 -0 0</pose>
+      <parent>base_link</parent>
+      <child>wheel4_link</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='wheel4_link'>
+      <pose relative_to='wheel4_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>-0 -0.015719 0 0 -0 0</pose>
+        <mass>0.037807</mass>
+        <inertia>
+          <ixx>4.513e-06</ixx>
+          <ixy>7.8392e-23</ixy>
+          <ixz>1.5946e-20</ixz>
+          <iyy>5.9992e-06</iyy>
+          <iyz>-1.9748e-21</iyz>
+          <izz>4.513e-06</izz>
+        </inertia>
+      </inertial>
+      <collision name='wheel4_link_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://uav_v4/meshes/wheel4_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='wheel4_link_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://uav_v4/meshes/wheel4_link.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <plugin name='rosbag' filename='librotors_gazebo_multirotor_base_plugin.so'>
+      <robotNamespace/>
+      <linkName>base_link</linkName>
+      <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
+    </plugin>
+    <plugin name='front_right_motor_model' filename='librotors_gazebo_motor_model.so'>
+      <robotNamespace/>
+      <jointName>wing1_joint</jointName>
+      <linkName>wing1_link</linkName>
+      <turningDirection>ccw</turningDirection>
+      <timeConstantUp>0.0125</timeConstantUp>
+      <timeConstantDown>0.025</timeConstantDown>
+      <maxRotVelocity>1100</maxRotVelocity>
+      <motorConstant>1.568e-05</motorConstant>
+      <momentConstant>0.06</momentConstant>
+      <commandSubTopic>/gazebo/command/motor_speed</commandSubTopic>
+      <motorNumber>0</motorNumber>
+      <rotorDragCoefficient>0.000175</rotorDragCoefficient>
+      <rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
+      <motorSpeedPubTopic>/motor_speed/0</motorSpeedPubTopic>
+      <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
+    </plugin>
+    <plugin name='back_left_motor_model' filename='librotors_gazebo_motor_model.so'>
+      <robotNamespace/>
+      <jointName>wing2_joint</jointName>
+      <linkName>wing2_link</linkName>
+      <turningDirection>ccw</turningDirection>
+      <timeConstantUp>0.0125</timeConstantUp>
+      <timeConstantDown>0.025</timeConstantDown>
+      <maxRotVelocity>1100</maxRotVelocity>
+      <motorConstant>1.568e-05</motorConstant>
+      <momentConstant>0.06</momentConstant>
+      <commandSubTopic>/gazebo/command/motor_speed</commandSubTopic>
+      <motorNumber>1</motorNumber>
+      <rotorDragCoefficient>0.000175</rotorDragCoefficient>
+      <rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
+      <motorSpeedPubTopic>/motor_speed/1</motorSpeedPubTopic>
+      <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
+    </plugin>
+    <plugin name='front_left_motor_model' filename='librotors_gazebo_motor_model.so'>
+      <robotNamespace/>
+      <jointName>wing3_joint</jointName>
+      <linkName>wing3_link</linkName>
+      <turningDirection>cw</turningDirection>
+      <timeConstantUp>0.0125</timeConstantUp>
+      <timeConstantDown>0.025</timeConstantDown>
+      <maxRotVelocity>1100</maxRotVelocity>
+      <motorConstant>1.568e-05</motorConstant>
+      <momentConstant>0.06</momentConstant>
+      <commandSubTopic>/gazebo/command/motor_speed</commandSubTopic>
+      <motorNumber>2</motorNumber>
+      <rotorDragCoefficient>0.000175</rotorDragCoefficient>
+      <rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
+      <motorSpeedPubTopic>/motor_speed/2</motorSpeedPubTopic>
+      <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
+    </plugin>
+    <plugin name='back_right_motor_model' filename='librotors_gazebo_motor_model.so'>
+      <robotNamespace/>
+      <jointName>wing4_joint</jointName>
+      <linkName>wing4_link</linkName>
+      <turningDirection>cw</turningDirection>
+      <timeConstantUp>0.0125</timeConstantUp>
+      <timeConstantDown>0.025</timeConstantDown>
+      <maxRotVelocity>1100</maxRotVelocity>
+      <motorConstant>1.568e-05</motorConstant>
+      <momentConstant>0.06</momentConstant>
+      <commandSubTopic>/gazebo/command/motor_speed</commandSubTopic>
+      <motorNumber>3</motorNumber>
+      <rotorDragCoefficient>0.000175</rotorDragCoefficient>
+      <rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
+      <motorSpeedPubTopic>/motor_speed/3</motorSpeedPubTopic>
+      <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
+    </plugin>
+    <include>
+      <uri>model://gps</uri>
+      <pose>0.05 0 0.04 0 0 0</pose>
+      <name>gps0</name>
+    </include>
+    <joint name='gps0_joint' type='fixed'>
+      <child>gps0::link</child>
+      <parent>base_link</parent>
+    </joint>
+    <plugin name='magnetometer_plugin' filename='librotors_gazebo_magnetometer_plugin.so'>
+      <robotNamespace/>
+      <pubRate>100</pubRate>
+      <noiseDensity>0.0004</noiseDensity>
+      <randomWalk>6.4e-06</randomWalk>
+      <biasCorrelationTime>600</biasCorrelationTime>
+      <magTopic>/mag</magTopic>
+    </plugin>
+    <!-- MAVLink interface is disabled for the Phase-1 rescue simulation.
+         The current workspace build does not produce librotors_gazebo_mavlink_interface.so,
+         and this block also contains fixed-wing channel names from the original template. -->
+    <!-- <plugin name='mavlink_interface' filename='librotors_gazebo_mavlink_interface.so'>
+      <robotNamespace/>
+      <imuSubTopic>/imu</imuSubTopic>
+      <magSubTopic>/mag</magSubTopic>
+      <baroSubTopic>/baro</baroSubTopic>
+      <mavlink_addr>INADDR_ANY</mavlink_addr>
+      <mavlink_tcp_port>4560</mavlink_tcp_port>
+      <mavlink_udp_port>14560</mavlink_udp_port>
+      <serialEnabled>0</serialEnabled>
+      <serialDevice>/dev/ttyACM0</serialDevice>
+      <baudRate>921600</baudRate>
+      <qgc_addr>INADDR_ANY</qgc_addr>
+      <qgc_udp_port>14550</qgc_udp_port>
+      <sdk_addr>INADDR_ANY</sdk_addr>
+      <sdk_udp_port>14540</sdk_udp_port>
+      <hil_mode>0</hil_mode>
+      <hil_state_level>0</hil_state_level>
+      <send_vision_estimation>0</send_vision_estimation>
+      <send_odometry>1</send_odometry>
+      <enable_lockstep>1</enable_lockstep>
+      <use_tcp>1</use_tcp>
+      <motorSpeedCommandPubTopic>/gazebo/command/motor_speed</motorSpeedCommandPubTopic>
+      <control_channels>
+        <channel name='rotor1'>
+          <input_index>0</input_index>
+          <input_offset>0</input_offset>
+          <input_scaling>1000</input_scaling>
+          <zero_position_disarmed>0</zero_position_disarmed>
+          <zero_position_armed>100</zero_position_armed>
+          <joint_control_type>velocity</joint_control_type>
+        </channel>
+        <channel name='rotor2'>
+          <input_index>1</input_index>
+          <input_offset>0</input_offset>
+          <input_scaling>1000</input_scaling>
+          <zero_position_disarmed>0</zero_position_disarmed>
+          <zero_position_armed>100</zero_position_armed>
+          <joint_control_type>velocity</joint_control_type>
+        </channel>
+        <channel name='rotor3'>
+          <input_index>2</input_index>
+          <input_offset>0</input_offset>
+          <input_scaling>1000</input_scaling>
+          <zero_position_disarmed>0</zero_position_disarmed>
+          <zero_position_armed>100</zero_position_armed>
+          <joint_control_type>velocity</joint_control_type>
+        </channel>
+        <channel name='rotor4'>
+          <input_index>3</input_index>
+          <input_offset>0</input_offset>
+          <input_scaling>1000</input_scaling>
+          <zero_position_disarmed>0</zero_position_disarmed>
+          <zero_position_armed>100</zero_position_armed>
+          <joint_control_type>velocity</joint_control_type>
+        </channel>
+        <channel name='rotor5'>
+          <input_index>4</input_index>
+          <input_offset>1</input_offset>
+          <input_scaling>324.6</input_scaling>
+          <zero_position_disarmed>0</zero_position_disarmed>
+          <zero_position_armed>0</zero_position_armed>
+          <joint_control_type>velocity</joint_control_type>
+          <joint_control_pid>
+            <p>0.1</p>
+            <i>0</i>
+            <d>0</d>
+            <iMax>0.0</iMax>
+            <iMin>0.0</iMin>
+            <cmdMax>2</cmdMax>
+            <cmdMin>-2</cmdMin>
+          </joint_control_pid>
+          <joint_name>zephyr_delta_wing::propeller_joint</joint_name>
+        </channel>
+        <channel name='rotor6'>
+          <input_index>5</input_index>
+          <input_offset>0</input_offset>
+          <input_scaling>0.524</input_scaling>
+          <zero_position_disarmed>0</zero_position_disarmed>
+          <zero_position_armed>0</zero_position_armed>
+          <joint_control_type>position</joint_control_type>
+          <joint_name>zephyr_delta_wing::flap_left_joint</joint_name>
+          <joint_control_pid>
+            <p>10.0</p>
+            <i>0</i>
+            <d>0</d>
+            <iMax>0</iMax>
+            <iMin>0</iMin>
+            <cmdMax>20</cmdMax>
+            <cmdMin>-20</cmdMin>
+          </joint_control_pid>
+        </channel>
+        <channel name='rotor7'>
+          <input_index>6</input_index>
+          <input_offset>0</input_offset>
+          <input_scaling>0.524</input_scaling>
+          <zero_position_disarmed>0</zero_position_disarmed>
+          <zero_position_armed>0</zero_position_armed>
+          <joint_control_type>position</joint_control_type>
+          <joint_name>zephyr_delta_wing::flap_right_joint</joint_name>
+          <joint_control_pid>
+            <p>10.0</p>
+            <i>0</i>
+            <d>0</d>
+            <iMax>0</iMax>
+            <iMin>0</iMin>
+            <cmdMax>20</cmdMax>
+            <cmdMin>-20</cmdMin>
+          </joint_control_pid>
+        </channel>
+        <channel name='rotor8'>
+          <input_index>7</input_index>
+          <input_offset>0</input_offset>
+          <input_scaling>0.524</input_scaling>
+          <zero_position_disarmed>0</zero_position_disarmed>
+          <zero_position_armed>0</zero_position_armed>
+          <joint_control_type>position</joint_control_type>
+        </channel>
+      </control_channels>
+    </plugin> -->
+
+    <!-- Mecanum wheel ground motion: libgazebo_ros_planar_move applies body-level planar
+         velocity so the robot responds to /mecanum/cmd_vel without requiring a custom plugin.
+         NOTE: wheel joints are set to revolute but visual spinning is not driven here;
+         replace with a dedicated mecanum plugin when available in the build environment. -->
+    <plugin name="mecanum_drive_plugin" filename="libgazebo_ros_planar_move.so">
+      <commandTopic>/mecanum/cmd_vel</commandTopic>
+      <odometryTopic>/odom_mecanum</odometryTopic>
+      <odometryFrame>odom</odometryFrame>
+      <odometryRate>50.0</odometryRate>
+      <robotBaseFrame>base_link</robotBaseFrame>
+    </plugin>
+
+    <static>0</static>
+    <plugin name='rotors_gazebo_imu_plugin' filename='librotors_gazebo_imu_plugin.so'>
+      <robotNamespace/>
+      <linkName>/imu_link</linkName>
+      <imuTopic>/imu</imuTopic>
+    </plugin>
+  </model>
+</sdf>

@@ -1,0 +1,63 @@
+# Scene D: low-battery scenario for the PR-4 decision-layer safety supervisor.
+#
+# Terrain mirrors Scene B (a barrier the robot is motivated to fly over), but the
+# battery is a small joule budget. Start = initial_battery * battery_capacity_j
+# = 0.85 * 30 = 25.5 J. The *base* takeoff logic allows takeoff (fraction 0.85 >
+# the 0.40 battery_takeoff_min floor), but the supervisor's reachability gate
+# (E_takeoff + E_air_reserve + E_land + E_margin = 11+12+12+8 = 43 J) exceeds
+# 25.5 J, so when enforcing it blocks the takeoff. 25.5 J is also genuinely
+# insufficient for a flight: after takeoff (~6 J) and the air segment (~15 J) the
+# remaining energy drops below E_land (12 J) while still airborne.
+#
+# Expected contrast (risk_aware vs risk_aware_safety):
+#   risk_aware       -> takes off at 25.5 J, flight drains below E_land mid-air
+#                       => irreversible_failure = 1, shield_override_count = 0.
+#   risk_aware_safety -> takeoff blocked, stays grounded (mission may fail by
+#                       getting stuck, but safely) => irreversible_failure = 0,
+#                       shield_override_count > 0.
+
+mission_state_machine:
+  waypoints:
+    - [1.8, 0.0, 0.0]
+    - [3.8, 0.25, 0.0]
+    - [5.5, -0.25, 0.0]
+    - [7.5, 0.55, 0.0]
+    - [10.0, 0.0, 0.0]
+
+rescue_metrics_logger:
+  battery_capacity_j: 30.0
+  initial_battery: 0.85
+
+# Scene D is an adversarial scenario for the safety supervisor: it must reliably
+# tempt the (unguarded) policy into the low-battery takeoff so we can measure how
+# often the supervisor prevents the resulting irreversible crash. With the global
+# wcvar, the seeded perception made risk_aware fly on only ~4/20 seeds (it trapped
+# on the ground first on the rest), leaving the irreversible contrast
+# underpowered. A scene-local aggressive tail-risk weight makes it fly reliably
+# while it is still mobile. This tunes the *decision eagerness to fly*, not the
+# supervisor — the supervisor's job (block the unsafe takeoff) is unchanged.
+mode_switcher:
+  risk_aware:
+    wcvar: 2.5
+
+ground_goal_controller:
+  terrain_effects_enabled: true
+  min_traction: 0.12
+  stuck_traction: 0.0
+  terrain_cost_gain: 0.85
+  obstacle_density_gain: 0.45
+  stuck_risk_gain: 0.65
+  stuck_risk_threshold: 0.64
+  stuck_obstacle_threshold: 0.70
+
+scenario_sensor_sim:
+  use_time_script: false
+  use_position_script: true
+  base_obstacle_density: 0.08
+  slope_zone_deg: 18.0
+  barrier_obstacle_density: 0.72
+  slope_zone_x_min: 3.4
+  slope_zone_x_max: 5.4
+  barrier_x_min: 6.0
+  barrier_x_max: 8.0
+  barrier_y_half_width: 0.65

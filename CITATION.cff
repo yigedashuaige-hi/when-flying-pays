@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use this software or data, please cite the associated manuscript."
+title: "When Does Flying Pay Off? Ground-Failure Models and Mode-Switching Regimes for Terrestrial–Aerial Robots"
+type: software
+authors:
+  - family-names: Wang
+    given-names: Hongxin
+    orcid: "https://orcid.org/0009-0004-5796-4879"
+  - family-names: Liu
+    given-names: Qiaoling
+  - family-names: Wang
+    given-names: Kaibo
+version: 1.0.0
+date-released: 2026-09-27
+repository-code: "https://github.com/yigedashuaige-hi/when-flying-pays"
+contact:
+  - family-names: Wang
+    given-names: Hongxin
+    email: hongxinw918@gmail.com

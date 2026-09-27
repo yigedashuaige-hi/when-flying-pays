@@ -1,0 +1,38 @@
+{
+  "phase": "F1",
+  "frozen_date": "2026-08-21",
+  "backend": "ideal_set_model_state",
+  "stuck_model": "recoverable",
+  "scenes": ["scene_b", "scene_c"],
+  "scene_specific_selection": true,
+  "threshold_switch": {
+    "tuned_parameter": "switch_tau",
+    "candidates": [0.2, 0.3, 0.4, 0.5, 0.6],
+    "all_other_parameters": "frozen by the existing base and scene YAML"
+  },
+  "risk_aware": {
+    "tuned_parameter": "mode_switcher.risk_aware.wcvar",
+    "candidates": [0.25, 0.5, 0.75, 1.0, 1.25],
+    "fixed_parameters": {
+      "alpha": 0.8,
+      "k_unc": 1.0,
+      "C_stuck": 60.0,
+      "switch_penalty": 2.0,
+      "wE_g": 1.0,
+      "wT_g": 0.15,
+      "wR": 0.45,
+      "wD": 0.1,
+      "wS": 1.0,
+      "wE_a": 1.0,
+      "wL": 1.0
+    }
+  },
+  "tuning_seeds": [100, 101, 102, 103, 104, 105, 106, 107, 108, 109],
+  "held_out_evaluation_seeds": [200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216, 217, 218, 219],
+  "fixed_reference": "fixed_switch",
+  "tuning_runs_per_family_per_scene": 50,
+  "total_tuning_runs": 200,
+  "held_out_runs_selected_methods": 80,
+  "held_out_runs_fixed_reference": 40,
+  "total_planned_runs": 320
+}

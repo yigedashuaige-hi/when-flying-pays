@@ -1,0 +1,47 @@
+<launch>
+  <!-- Phase C2 isolated dynamics harness. It spawns exactly one uav_v4 and
+       deliberately does not start mission policy or the ideal air executor. -->
+  <arg name="gui" default="false" />
+  <arg name="headless" default="true" />
+  <arg name="paused" default="false" />
+  <arg name="ground_structure" default="false" />
+  <arg name="ground_plugin" default="false" />
+  <arg name="controller" default="false" />
+  <arg name="spawn_z" default="0.15" />
+  <arg name="world_name"
+       default="$(find rescue_worlds)/worlds/disaster_scene_a.world" />
+
+  <env name="GAZEBO_MODEL_PATH"
+       value="$(optenv CATKIN_WS /workspace/ros_ws)/src:$(optenv CATKIN_WS /workspace/ros_ws)/src/rotors_simulator/rotors_gazebo/models:$(optenv GAZEBO_MODEL_PATH)" />
+  <env name="GAZEBO_PLUGIN_PATH"
+       value="$(optenv CATKIN_WS /workspace/ros_ws)/devel/lib:/opt/ros/noetic/lib:$(optenv GAZEBO_PLUGIN_PATH)" />
+
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(arg world_name)" />
+    <arg name="paused" value="$(arg paused)" />
+    <arg name="use_sim_time" value="true" />
+    <arg name="gui" value="$(arg gui)" />
+    <arg name="headless" value="$(arg headless)" />
+  </include>
+
+  <param name="uav_v4_rotors_native_description"
+         command="$(find xacro)/xacro '$(find uav_v4)/urdf/uav_v4_rotors_native.urdf.xacro' ground_structure:=$(arg ground_structure) ground_plugin:=$(arg ground_plugin)" />
+  <node name="spawn_uav_v4" pkg="gazebo_ros" type="spawn_model"
+        args="-param uav_v4_rotors_native_description -urdf -model uav_v4 -x 0 -y 0 -z $(arg spawn_z)"
+        output="screen" />
+
+  <group if="$(arg controller)">
+    <group ns="uav_v4">
+      <node pkg="rotors_control" type="lee_position_controller_node"
+            name="lee_position_controller_node" output="screen">
+        <rosparam command="load" file="$(find uav_v4)/config/lee_controller_uav_v4.yaml" />
+        <rosparam command="load" file="$(find uav_v4)/config/uav_v4_rotors_native.yaml" />
+        <remap from="command/motor_speed" to="command/motor_speed_raw" />
+      </node>
+    </group>
+    <node pkg="rescue_mission" type="rotors_motor_gate.py"
+          name="rotors_motor_gate" output="screen" />
+    <node pkg="rescue_mission" type="rotors_odometry_bridge.py"
+          name="rotors_odometry_bridge" output="screen" />
+  </group>
+</launch>

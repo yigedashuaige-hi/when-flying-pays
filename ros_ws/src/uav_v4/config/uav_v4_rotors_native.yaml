@@ -1,0 +1,12 @@
+# Phase C2 RotorS-native single-primary-body controller model.
+# These values describe the complete vehicle, including four 0.005 kg rotors.
+mass: 3.0440996088045096
+inertia: {xx: 0.00895947244, xy: -0.00000170059178, xz: 0.0000422441103,
+          yy: 0.00834642698, yz: 0.00000846342556, zz: 0.015220676}
+
+# Rotor arms are measured from the aggregate COM projected into base_link XY.
+rotor_configuration:
+  '0': {angle: -0.782347192, arm_length: 0.144471197, rotor_force_constant: 1.568e-05, rotor_moment_constant: 0.06, direction: 1.0}
+  '1': {angle: 2.378062960, arm_length: 0.147122456, rotor_force_constant: 1.568e-05, rotor_moment_constant: 0.06, direction: 1.0}
+  '2': {angle: 0.789011010, arm_length: 0.144182194, rotor_force_constant: 1.568e-05, rotor_moment_constant: 0.06, direction: -1.0}
+  '3': {angle: -2.371498110, arm_length: 0.147253596, rotor_force_constant: 1.568e-05, rotor_moment_constant: 0.06, direction: -1.0}

@@ -1,0 +1,13 @@
+# Composite deployed configuration computed from uav_v4.urdf at zero joint
+# angles. Rotor constants match the existing historical uav_v4 SDF motor spec.
+mass: 3.0440996088045096
+inertia: {xx: 0.00895947244, xy: -0.00000170059178, xz: 0.0000422441103,
+          yy: 0.00834642698, yz: 0.00000846342556, zz: 0.015220676}
+
+# angle = atan2(y, x), arm_length = hypot(x, y), both from the deployed
+# wing-joint centers in base_link. direction 1=ccw, -1=cw.
+rotor_configuration:
+  '0': {angle: -0.772390231, arm_length: 0.145905443, rotor_force_constant: 1.568e-05, rotor_moment_constant: 0.06, direction: 1.0}
+  '1': {angle: 2.368276368, arm_length: 0.145675336, rotor_force_constant: 1.568e-05, rotor_moment_constant: 0.06, direction: 1.0}
+  '2': {angle: 0.779207102, arm_length: 0.145641142, rotor_force_constant: 1.568e-05, rotor_moment_constant: 0.06, direction: -1.0}
+  '3': {angle: -2.361893802, arm_length: 0.145781623, rotor_force_constant: 1.568e-05, rotor_moment_constant: 0.06, direction: -1.0}

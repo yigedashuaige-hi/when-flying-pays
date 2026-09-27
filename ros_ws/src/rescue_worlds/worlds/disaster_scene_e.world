@@ -1,0 +1,46 @@
+<?xml version="1.0" ?>
+<sdf version="1.5">
+  <world name="disaster_scene_e">
+    <!-- Transport/ROS bridge is inert for ideal backend and required by RotorS. -->
+    <plugin name="rotors_ros_interface_plugin"
+            filename="librotors_gazebo_ros_interface_plugin.so" />
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <physics type="ode">
+      <max_step_size>0.001</max_step_size>
+      <real_time_update_rate>1000</real_time_update_rate>
+    </physics>
+
+    <!-- Scene E (active-recoverability pilot): no physical collision obstacles, so
+         getting stuck comes ONLY from the seeded traversability field (theta_true
+         Bernoulli traction), not from mesh collisions. A visual-only marker shows
+         the LATE risky barrier region (x ~ 9.5-11.5) the robot must traverse or
+         fly over with a medium battery. -->
+    <model name="late_barrier_marker">
+      <static>true</static>
+      <pose>10.5 0 0.25 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>2.0 2.0 0.5</size></box></geometry>
+          <material><ambient>0.8 0.4 0 0.4</ambient><diffuse>0.8 0.4 0 0.4</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="goal_marker">
+      <static>true</static>
+      <pose>13 0 0.25 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><cylinder><radius>0.25</radius><length>0.5</length></cylinder></geometry>
+          <material><ambient>1 0 0 1</ambient><diffuse>1 0 0 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+  </world>
+</sdf>

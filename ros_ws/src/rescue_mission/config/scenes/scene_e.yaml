@@ -1,0 +1,46 @@
+# Scene E: active-recoverability pilot (cross-domain coupling).
+#
+# A long mission with a LATE risky ground barrier (x ~ 9.5-11.5) reached only
+# after spending ground energy, plus a MEDIUM battery (capacity 70 J;
+# initial_battery is overridden per pilot battery level via the launch arg). A
+# myopic policy can reach the late barrier and get stuck without enough battery
+# left to fly out (unrecoverable); the active supervisor reserves the fly-out
+# option for the upcoming risky region.
+#
+# Frozen for the pilot — NOT tuned to make the active condition win. Barrier
+# severity (0.78) mirrors Scene B's risky-but-survivable level so the fly/ground
+# decision is genuinely a trade-off, not forced.
+
+mission_state_machine:
+  waypoints:
+    - [2.5, 0.0, 0.0]
+    - [5.5, 0.4, 0.0]
+    - [8.0, -0.4, 0.0]
+    - [10.5, 0.4, 0.0]
+    - [13.0, 0.0, 0.0]
+
+rescue_metrics_logger:
+  battery_capacity_j: 70.0
+  initial_battery: 0.70   # overridden per battery level by the pilot (initial_battery launch arg)
+
+ground_goal_controller:
+  terrain_effects_enabled: true
+  min_traction: 0.12
+  stuck_traction: 0.0
+  terrain_cost_gain: 0.85
+  obstacle_density_gain: 0.45
+  stuck_risk_gain: 0.65
+  stuck_risk_threshold: 0.64
+  stuck_obstacle_threshold: 0.70
+
+scenario_sensor_sim:
+  use_time_script: false
+  use_position_script: true
+  base_obstacle_density: 0.06
+  slope_zone_deg: 15.0
+  slope_zone_x_min: 4.0
+  slope_zone_x_max: 5.5
+  barrier_obstacle_density: 0.78
+  barrier_x_min: 9.5
+  barrier_x_max: 11.5
+  barrier_y_half_width: 1.2

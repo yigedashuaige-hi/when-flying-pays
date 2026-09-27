@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>rescue_worlds</name>
+  <version>0.0.1</version>
+  <description>Gazebo disaster-rescue worlds for land-air robot experiments.</description>
+
+  <maintainer email="wang@todo.todo">wang</maintainer>
+  <license>TODO</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>gazebo_ros</build_depend>
+  <exec_depend>gazebo_ros</exec_depend>
+
+  <export>
+  </export>
+</package>

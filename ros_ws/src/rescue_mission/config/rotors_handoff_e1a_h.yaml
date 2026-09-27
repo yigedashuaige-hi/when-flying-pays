@@ -1,0 +1,68 @@
+rotors_handoff_coordinator:
+  update_rate: 50.0
+  cruise_altitude: 1.2
+  ground_reference_height: 0.066
+  ground_command_altitude: 0.05
+
+  brake_horizontal_speed: 0.05
+  brake_attitude_limit: 0.10
+  brake_yaw_rate: 0.10
+  brake_motor_speed: 5.0
+  brake_hold_sec: 0.30
+
+  release_zero_updates: 3
+  release_min_sec: 0.03
+  ground_wrench_zero_force: 0.001
+  ground_wrench_zero_torque: 0.0001
+
+  clearance_height: 0.30
+  # Pre-registered target-altitude tolerance. The 0.30 m value remains only a
+  # minimum guard and can no longer complete horizontal release by itself.
+  target_altitude_tolerance: 0.10
+  clearance_vertical_speed: 0.20
+  clearance_attitude_limit: 0.15
+  clearance_hold_sec: 0.20
+
+  touchdown_height_tolerance: 0.025
+  touchdown_vertical_speed: 0.10
+  touchdown_horizontal_speed: 0.08
+  touchdown_attitude_limit: 0.15
+  touchdown_hold_sec: 0.40
+
+  disarm_motor_speed: 5.0
+  disarm_hold_sec: 0.20
+  reacquire_hold_sec: 0.10
+
+  site_measurement_timeout_sec: 0.15
+  site_preflight_hold_sec: 0.20
+  contact_abort_hold_sec: 0.10
+  takeoff_progress_epsilon_m: 0.025
+  takeoff_stall_timeout_sec: 1.00
+  takeoff_stall_grace_sec: 0.75
+
+  # Phase E1a-R RotorS-only historical valid-site backtrack. The 0.30 m
+  # separation is the existing 0.25 m mission ground-goal tolerance plus a
+  # 0.05 m command margin; it is not a Scene A coordinate.
+  valid_site_history_window_sec: 12.0
+  valid_site_history_sample_period_sec: 0.10
+  reposition_min_separation_m: 0.30
+  # The historical valid pose must be restored closely: the R4 bag showed that
+  # stopping 0.094 m short of a valid pose with 0.022 m obstacle margin left
+  # the current footprint blocked. This is recovery-only, not mission tuning.
+  reposition_goal_tolerance_m: 0.03
+  reposition_speed_tolerance_m_s: 0.05
+  reposition_timeout_sec: 8.0
+  reposition_no_progress_timeout_sec: 2.0
+  # Must be materially smaller than the 0.03 m arrival tolerance; 0.025 m
+  # falsely declared no-progress at 0.032 m from an otherwise valid goal.
+  reposition_progress_epsilon_m: 0.005
+
+  # Phase E1a-R2 mission-lifetime navigation memory. Historical evidence can
+  # select only a ground reposition target; fresh stable clearance at arrival
+  # remains mandatory before the existing brake/arm sequence.
+  persistent_safe_site_capacity: 32
+  persistent_safe_site_dedup_distance_m: 0.15
+
+ground_goal_controller:
+  recovery_goal_tolerance: 0.03
+  recovery_yaw_tolerance: 0.10

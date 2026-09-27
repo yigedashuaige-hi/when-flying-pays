@@ -1,0 +1,39 @@
+<launch>
+  <!-- Phase E0/E1 only: real RotorS/Gazebo loop with the frozen D2 supervisor.
+       It intentionally excludes the mission policy and ideal pose executor. -->
+  <arg name="gui" default="false" />
+  <arg name="headless" default="true" />
+  <arg name="case" default="sufficient" />
+  <arg name="guarded" default="true" />
+  <arg name="mechanical_budget_j" default="36500.0" />
+  <arg name="output_csv" default="/tmp/phase_e1_supervisor_smoke.csv" />
+  <arg name="output_json" default="/tmp/phase_e1_supervisor_smoke.json" />
+
+  <rosparam command="load"
+            file="$(find rescue_mission)/config/rotors_supervisor_d2.yaml" />
+
+  <include file="$(find rescue_worlds)/launch/uav_v4_rotors_hybrid_smoke.launch">
+    <arg name="gui" value="$(arg gui)" />
+    <arg name="headless" value="$(arg headless)" />
+    <arg name="paused" value="false" />
+  </include>
+
+  <node pkg="rescue_mission" type="rescue_metrics_logger.py"
+        name="rescue_metrics_logger" output="screen">
+    <param name="strategy_tag" value="supervisor_$(arg case)" />
+    <param name="scene_tag" value="phase_e1_supervisor_smoke" />
+    <param name="seed" value="-1" />
+    <param name="air_backend" value="rotors" />
+    <param name="csv_path" value="$(arg output_csv)" />
+    <param name="latest_csv_path" value="$(arg output_csv)" />
+    <param name="mission_timeout_sec" value="10000" />
+    <param name="update_rate" value="20.0" />
+    <param name="rotors_mechanical_budget_j"
+           value="$(arg mechanical_budget_j)" />
+  </node>
+
+  <node pkg="rescue_worlds" type="uav_v4_rotors_supervisor_closed_loop.py"
+        name="uav_v4_rotors_supervisor_closed_loop" output="screen"
+        required="true"
+        args="--case $(arg case) --guarded $(arg guarded) --output $(arg output_json)" />
+</launch>

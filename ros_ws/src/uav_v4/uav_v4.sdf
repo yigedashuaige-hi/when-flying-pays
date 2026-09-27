@@ -1,0 +1,632 @@
+<sdf version='1.7'>
+  <model name='uav_v4'>
+    <link name='base_link'>
+      <inertial>
+        <pose>0.002721 3.2e-05 0.016326 0 -0 0</pose>
+        <mass>2.2782</mass>
+        <inertia>
+          <ixx>0.0010088</ixx>
+          <ixy>-1.2793e-06</ixy>
+          <ixz>5.9514e-06</ixz>
+          <iyy>0.00068372</iyy>
+          <iyz>7.939e-06</iyz>
+          <izz>0.0014123</izz>
+        </inertia>
+      </inertial>
+      <collision name='base_link_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://uav_v4/meshes/base_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='base_link_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://uav_v4/meshes/base_link.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='arm1_joint' type='revolute'>
+      <pose relative_to='base_link'>0.0475 -0.0455 0.04 0 -0 0</pose>
+      <parent>base_link</parent>
+      <child>arm1_link</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>1</effort>
+          <velocity>1</velocity>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='arm1_link'>
+      <pose relative_to='arm1_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0.029359 -0.029033 0.001856 0 -0 0</pose>
+        <mass>0.010108</mass>
+        <inertia>
+          <ixx>3.6495e-06</ixx>
+          <ixy>3.4138e-06</ixy>
+          <ixz>-5.9984e-21</ixz>
+          <iyy>3.7257e-06</iyy>
+          <iyz>6.5036e-21</iyz>
+          <izz>7.3601e-06</izz>
+        </inertia>
+      </inertial>
+      <collision name='arm1_link_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://uav_v4/meshes/arm1_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='arm1_link_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://uav_v4/meshes/arm1_link.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='wing1_joint' type='revolute'>
+      <pose relative_to='arm1_link'>0.057004 -0.05632 0.0293 0 -0 0</pose>
+      <parent>arm1_link</parent>
+      <child>wing1_link</child>
+      <axis>
+        <xyz>0 0 -1</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='wing1_link'>
+      <pose relative_to='wing1_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>-0.000121 6.8e-05 -0.015469 0 -0 0</pose>
+        <mass>0.14356</mass>
+        <inertia>
+          <ixx>1.0711e-05</ixx>
+          <ixy>3.8436e-10</ixy>
+          <ixz>-7.0473e-12</ixz>
+          <iyy>1.0711e-05</iyy>
+          <iyz>7.1694e-11</iyz>
+          <izz>1.5206e-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='wing1_link_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://uav_v4/meshes/wing1_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='wing1_link_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://uav_v4/meshes/wing1_link.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='arm2_joint' type='revolute'>
+      <pose relative_to='base_link'>-0.0475 0.0455 0.04 0 -0 0</pose>
+      <parent>base_link</parent>
+      <child>arm2_link</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>1</effort>
+          <velocity>1</velocity>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='arm2_link'>
+      <pose relative_to='arm2_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>-0.029296 0.028971 0.001856 0 -0 0</pose>
+        <mass>0.0101076</mass>
+        <inertia>
+          <ixx>3.64954e-06</ixx>
+          <ixy>3.41382e-06</ixy>
+          <ixz>-1.77689e-21</ixz>
+          <iyy>3.72567e-06</iyy>
+          <iyz>2.36511e-21</iyz>
+          <izz>7.36005e-06</izz>
+        </inertia>
+      </inertial>
+      <collision name='arm2_link_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://uav_v4/meshes/arm2_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='arm2_link_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://uav_v4/meshes/arm2_link.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='wing2_joint' type='revolute'>
+      <pose relative_to='arm2_link'>-0.056745 0.056256 0.0293 0 -0 0</pose>
+      <parent>arm2_link</parent>
+      <child>wing2_link</child>
+      <axis>
+        <xyz>0 0 -1</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='wing2_link'>
+      <pose relative_to='wing2_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>-0.000138 -3e-06 -0.015469 0 -0 0</pose>
+        <mass>0.14356</mass>
+        <inertia>
+          <ixx>1.0711e-05</ixx>
+          <ixy>-2.2212e-10</ixy>
+          <ixz>-2.8595e-11</ixz>
+          <iyy>1.0711e-05</iyy>
+          <iyz>-9.5706e-11</iyz>
+          <izz>1.5206e-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='wing2_link_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://uav_v4/meshes/wing2_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='wing2_link_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://uav_v4/meshes/wing2_link.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='arm3_joint' type='revolute'>
+      <pose relative_to='base_link'>0.0475 0.0455 0.04 0 -0 0</pose>
+      <parent>base_link</parent>
+      <child>arm3_link</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>1</effort>
+          <velocity>1</velocity>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='arm3_link'>
+      <pose relative_to='arm3_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0.029033 0.029359 0.001856 0 -0 0</pose>
+        <mass>0.010108</mass>
+        <inertia>
+          <ixx>3.7257e-06</ixx>
+          <ixy>-3.4138e-06</ixy>
+          <ixz>8.2237e-21</ixz>
+          <iyy>3.6495e-06</iyy>
+          <iyz>8.7612e-21</iyz>
+          <izz>7.3601e-06</izz>
+        </inertia>
+      </inertial>
+      <collision name='arm3_link_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://uav_v4/meshes/arm3_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='arm3_link_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://uav_v4/meshes/arm3_link.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='wing3_joint' type='revolute'>
+      <pose relative_to='arm3_link'>0.056119 0.056844 0.0293 0 -0 0</pose>
+      <parent>arm3_link</parent>
+      <child>wing3_link</child>
+      <axis>
+        <xyz>0 0 -1</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='wing3_link'>
+      <pose relative_to='wing3_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0.000133 3.9e-05 -0.015469 0 -0 0</pose>
+        <mass>0.14356</mass>
+        <inertia>
+          <ixx>1.0711e-05</ixx>
+          <ixy>9.743e-11</ixy>
+          <ixz>8.2675e-13</ixz>
+          <iyy>1.071e-05</iyy>
+          <iyz>-1.3698e-10</iyz>
+          <izz>1.5205e-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='wing3_link_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://uav_v4/meshes/wing3_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='wing3_link_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://uav_v4/meshes/wing3_link.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='arm4_joint' type='revolute'>
+      <pose relative_to='base_link'>-0.0475 -0.0455 0.04 0 -0 0</pose>
+      <parent>base_link</parent>
+      <child>arm4_link</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>1</effort>
+          <velocity>1</velocity>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='arm4_link'>
+      <pose relative_to='arm4_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>-0.029033 -0.029359 0.001856 0 -0 0</pose>
+        <mass>0.010108</mass>
+        <inertia>
+          <ixx>3.7257e-06</ixx>
+          <ixy>-3.4138e-06</ixy>
+          <ixz>3.5619e-21</ixz>
+          <iyy>3.6495e-06</iyy>
+          <iyz>3.8509e-21</iyz>
+          <izz>7.3601e-06</izz>
+        </inertia>
+      </inertial>
+      <collision name='arm4_link_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://uav_v4/meshes/arm4_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='arm4_link_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://uav_v4/meshes/arm4_link.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='wing4_joint' type='revolute'>
+      <pose relative_to='arm4_link'>-0.056169 -0.056994 0.0293 0 -0 0</pose>
+      <parent>arm4_link</parent>
+      <child>wing4_link</child>
+      <axis>
+        <xyz>0 0 -1</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='wing4_link'>
+      <pose relative_to='wing4_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>-8.3e-05 0.000111 -0.015469 0 -0 0</pose>
+        <mass>0.14356</mass>
+        <inertia>
+          <ixx>1.0711e-05</ixx>
+          <ixy>-2.2056e-10</ixy>
+          <ixz>-5.3232e-12</ixz>
+          <iyy>1.0711e-05</iyy>
+          <iyz>-1.1229e-10</iyz>
+          <izz>1.5206e-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='wing4_link_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://uav_v4/meshes/wing4_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='wing4_link_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://uav_v4/meshes/wing4_link.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='wheel1_joint' type='revolute'>
+      <pose relative_to='base_link'>0.04 -0.088 -0.015 0 -0 0</pose>
+      <parent>base_link</parent>
+      <child>wheel1_link</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='wheel1_link'>
+      <pose relative_to='wheel1_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>-0 0.015781 -0 0 -0 0</pose>
+        <mass>0.037807</mass>
+        <inertia>
+          <ixx>4.513e-06</ixx>
+          <ixy>-1.3835e-21</ixy>
+          <ixz>-1.7984e-20</ixz>
+          <iyy>5.9992e-06</iyy>
+          <iyz>-1.2662e-21</iyz>
+          <izz>4.513e-06</izz>
+        </inertia>
+      </inertial>
+      <collision name='wheel1_link_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://uav_v4/meshes/wheel1_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='wheel1_link_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://uav_v4/meshes/wheel1_link.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='wheel2_joint' type='revolute'>
+      <pose relative_to='base_link'>-0.04 -0.088 -0.015 0 -0 0</pose>
+      <parent>base_link</parent>
+      <child>wheel2_link</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='wheel2_link'>
+      <pose relative_to='wheel2_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 0.015781 -0 0 -0 0</pose>
+        <mass>0.037807</mass>
+        <inertia>
+          <ixx>4.513e-06</ixx>
+          <ixy>-1.3736e-21</ixy>
+          <ixz>-1.8352e-20</ixz>
+          <iyy>5.9992e-06</iyy>
+          <iyz>-1.5042e-21</iyz>
+          <izz>4.513e-06</izz>
+        </inertia>
+      </inertial>
+      <collision name='wheel2_link_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://uav_v4/meshes/wheel2_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='wheel2_link_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://uav_v4/meshes/wheel2_link.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='wheel3_joint' type='revolute'>
+      <pose relative_to='base_link'>0.04 0.088 -0.015 0 -0 0</pose>
+      <parent>base_link</parent>
+      <child>wheel3_link</child>
+      <axis>
+        <xyz>0 -1 0</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='wheel3_link'>
+      <pose relative_to='wheel3_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>-0 -0.015781 0 0 -0 0</pose>
+        <mass>0.037807</mass>
+        <inertia>
+          <ixx>4.513e-06</ixx>
+          <ixy>1.4366e-21</ixy>
+          <ixz>1.0591e-20</ixz>
+          <iyy>5.9992e-06</iyy>
+          <iyz>-7.4952e-22</iyz>
+          <izz>4.513e-06</izz>
+        </inertia>
+      </inertial>
+      <collision name='wheel3_link_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://uav_v4/meshes/wheel3_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='wheel3_link_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://uav_v4/meshes/wheel3_link.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='wheel4_joint' type='revolute'>
+      <pose relative_to='base_link'>-0.04 0.088 -0.015 0 -0 0</pose>
+      <parent>base_link</parent>
+      <child>wheel4_link</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='wheel4_link'>
+      <pose relative_to='wheel4_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>-0 -0.015719 0 0 -0 0</pose>
+        <mass>0.037807</mass>
+        <inertia>
+          <ixx>4.513e-06</ixx>
+          <ixy>6.0908e-23</ixy>
+          <ixz>1.5908e-20</ixz>
+          <iyy>5.9992e-06</iyy>
+          <iyz>-2.0557e-21</iyz>
+          <izz>4.513e-06</izz>
+        </inertia>
+      </inertial>
+      <collision name='wheel4_link_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://uav_v4/meshes/wheel4_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='wheel4_link_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://uav_v4/meshes/wheel4_link.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+  </model>
+</sdf>

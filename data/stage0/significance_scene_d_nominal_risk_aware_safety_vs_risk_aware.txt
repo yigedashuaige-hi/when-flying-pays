@@ -1,0 +1,13 @@
+Paired significance: risk_aware_safety (treatment) vs risk_aware (baseline)  scene=scene_d
+strategies in file: ['risk_aware', 'risk_aware_safety']
+
+Wilcoxon signed-rank (continuous, paired by seed):
+  stuck_event_count    n=20 treat=122.950 base=113.200 median_diff=+6.500 95%CI[+5.500,+15.000] rank_biserial=+1.000 p=1.907e-06 [treat_lower:0 higher:20 tie:0]
+  total_energy_j       n=20 treat=12.788 base=29.880 median_diff=-16.755 95%CI[-17.170,-16.508] rank_biserial=-1.000 p=1.907e-06 [treat_lower:20 higher:0 tie:0]
+  slip_ratio           n=20 treat=0.924 base=0.976 median_diff=-0.073 95%CI[-0.078,-0.016] rank_biserial=-0.848 p=0.0003223 [treat_lower:16 higher:4 tie:0]
+  total_time_s         n=20 treat=81.660 base=81.630 median_diff=+0.200 95%CI[+0.000,+0.400] rank_biserial=+0.261 p=0.3419 [treat_lower:5 higher:12 tie:3]
+
+McNemar (binary, paired by seed):
+  success              n=20 treat_rate=0.00 base_rate=0.00 discordant(b=0,c=0) p=1.000
+  timeout              n=20 treat_rate=1.00 base_rate=1.00 discordant(b=0,c=0) p=1.000
+  irreversible_failure n=20 treat_rate=0.00 base_rate=0.20 discordant(b=0,c=4) p=0.125

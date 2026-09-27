@@ -1,0 +1,10 @@
+<launch>
+  <rosparam command="load" file="$(find rescue_mission)/config/mode_switch_params.yaml" />
+
+  <arg name="command_pose_topic" default="/command/pose" />
+
+  <node pkg="rescue_mission" type="air_goal_bridge.py" name="air_goal_bridge" output="screen">
+    <param name="publish_rotors_command_pose" value="true" />
+    <param name="rotors_command_pose_topic" value="$(arg command_pose_topic)" />
+  </node>
+</launch>

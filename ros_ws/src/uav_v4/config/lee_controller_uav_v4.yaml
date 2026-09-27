@@ -1,0 +1,6 @@
+# Phase-C initial gains for the 3.0441 kg uav_v4; intentionally not copied
+# from Firefly. These are smoke-test gains and are not paper calibration.
+position_gain: {x: 5.0, y: 5.0, z: 7.0}
+velocity_gain: {x: 3.8, y: 3.8, z: 5.0}
+attitude_gain: {x: 1.2, y: 1.2, z: 0.18}
+angular_rate_gain: {x: 0.18, y: 0.18, z: 0.10}

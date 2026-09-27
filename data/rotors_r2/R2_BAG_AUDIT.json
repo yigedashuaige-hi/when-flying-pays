@@ -1,0 +1,125 @@
+{
+  "acceptance": {
+    "all_landings_disarmed": true,
+    "all_takeoffs_fresh_site_valid": true,
+    "final_disarmed": true,
+    "final_motor_zero": true,
+    "finite": true,
+    "mission_done": true,
+    "motor_zero_during_reposition": true,
+    "no_dual_ownership": true,
+    "no_invalid_site_takeoff_motor": true,
+    "one_uav_v4": true,
+    "success_1": true,
+    "timeout_0": true
+  },
+  "approved_takeoff_events": [
+    {
+      "site_age_s": 0.012000000000000455,
+      "site_measurement_valid": true,
+      "site_valid": true,
+      "time": 16.46,
+      "x": 3.4809375546793704,
+      "y": 0.7933555116612738,
+      "z": 0.06586690504994265
+    },
+    {
+      "site_age_s": 0.012000000000000455,
+      "site_measurement_valid": true,
+      "site_valid": true,
+      "time": 50.54,
+      "x": 6.441487272097671,
+      "y": 0.5602197818013551,
+      "z": 0.06587211019390259
+    },
+    {
+      "site_age_s": 0.012000000000000455,
+      "site_measurement_valid": true,
+      "site_valid": true,
+      "time": 75.4,
+      "x": 7.60530407140493,
+      "y": -0.012459227744379861,
+      "z": 0.06587064951897965
+    }
+  ],
+  "arm_events": [
+    {
+      "handoff_state": "RELEASE_AND_ARM",
+      "site_age_s": 0.013000000000001677,
+      "site_measurement_valid": true,
+      "site_valid": true,
+      "time": 16.501
+    },
+    {
+      "handoff_state": "TAKEOFF_VERTICAL",
+      "site_age_s": 0.01300000000000523,
+      "site_measurement_valid": true,
+      "site_valid": true,
+      "time": 50.581
+    },
+    {
+      "handoff_state": "TAKEOFF_VERTICAL",
+      "site_age_s": 0.01300000000000523,
+      "site_measurement_valid": true,
+      "site_valid": true,
+      "time": 75.441
+    }
+  ],
+  "bag": "archive://rescue_worlds/results/phase_e1a_r2_full_scene_a_20260828/scene_a_frozen/run_1/scene_a_e1a_r2.bag",
+  "bag_end_sim_s": 133.353,
+  "bag_start_sim_s": 2.1390000000000002,
+  "done_sim_s": 80.0,
+  "dual_owner_samples": 0,
+  "final_actual_motor_mean_abs_rad_s": 0.0,
+  "final_handoff_state": "GROUND_DRIVE",
+  "final_mission_state": "DONE",
+  "invalid_takeoff_motor_samples": 0,
+  "landing_audit": [
+    {
+      "completed_disarm": true,
+      "disarm_time": 24.772,
+      "landing_time": 20.021
+    },
+    {
+      "completed_disarm": true,
+      "disarm_time": 62.102,
+      "landing_time": 60.021
+    },
+    {
+      "completed_disarm": true,
+      "disarm_time": 83.482,
+      "landing_time": 80.021
+    }
+  ],
+  "max_motor_during_reposition_rad_s": 0.0,
+  "model_count_max": 1,
+  "model_count_min": 1,
+  "nonfinite": [],
+  "persistent_safe_site_count_final": 32,
+  "success": 1,
+  "timeout": 0,
+  "topic_counts": {
+    "/gazebo/model_states": 131216,
+    "/rescue/mission_state": 263,
+    "/rescue/mode": 6562,
+    "/rescue/requested_mode": 1313,
+    "/rescue/rotors/approved_takeoff_pose": 3,
+    "/rescue/rotors/disarmed": 13123,
+    "/rescue/rotors/ground_control_active": 131215,
+    "/rescue/rotors/ground_ownership": 6561,
+    "/rescue/rotors/handoff_state": 6561,
+    "/rescue/rotors/motor_enable": 6561,
+    "/rescue/rotors/persistent_safe_site_count": 6561,
+    "/rescue/rotors/reposition_active": 6561,
+    "/rescue/rotors/reposition_result": 6560,
+    "/rescue/rotors/reposition_target_reachability": 6498,
+    "/rescue/rotors/reposition_target_revalidated": 6509,
+    "/rescue/rotors/reposition_target_site_id": 6509,
+    "/rescue/rotors/reposition_target_source": 6509,
+    "/rescue/rotors/takeoff_site_status": 6560,
+    "/uav_v4/command/motor_speed": 13121,
+    "/uav_v4/imu": 131170,
+    "/uav_v4/motor_speed": 131202,
+    "/uav_v4/odometry": 131201
+  }
+}

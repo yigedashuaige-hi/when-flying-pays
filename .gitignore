@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+*.bag
+*.log
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.out
+*.synctex.gz
+*.toc
+.DS_Store
+
+# Reproduction outputs
+reproduced/

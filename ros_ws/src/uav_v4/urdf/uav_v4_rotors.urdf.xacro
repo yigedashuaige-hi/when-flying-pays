@@ -1,0 +1,269 @@
+<?xml version="1.0"?>
+<robot name="uav_v4" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!--
+    Phase-C RotorS variant of the same uav_v4 assembly.
+    The SolidWorks-exported masses, inertias, mesh origins, and deployed joint
+    locations come from uav_v4.urdf. Arms are locked in their deployed pose;
+    the four existing wing links are the four driven rotor links.
+  -->
+
+  <xacro:macro name="mesh_link" params="name mass com ixx ixy ixz iyy iyz izz mesh color">
+    <link name="${name}">
+      <inertial>
+        <origin xyz="${com}" rpy="0 0 0"/>
+        <mass value="${mass}"/>
+        <inertia ixx="${ixx}" ixy="${ixy}" ixz="${ixz}"
+                 iyy="${iyy}" iyz="${iyz}" izz="${izz}"/>
+      </inertial>
+      <visual>
+        <geometry><mesh filename="package://uav_v4/meshes/${mesh}"/></geometry>
+        <material name="${name}_material"><color rgba="${color}"/></material>
+      </visual>
+      <collision>
+        <geometry><mesh filename="package://uav_v4/meshes/${mesh}"/></geometry>
+      </collision>
+    </link>
+  </xacro:macro>
+
+  <xacro:macro name="rotor_link" params="name mass com ixx ixy ixz iyy iyz izz mesh color">
+    <link name="${name}">
+      <inertial>
+        <origin xyz="${com}" rpy="0 0 0"/>
+        <mass value="${mass}"/>
+        <inertia ixx="${ixx}" ixy="${ixy}" ixz="${ixz}"
+                 iyy="${iyy}" iyz="${iyz}" izz="${izz}"/>
+      </inertial>
+      <visual>
+        <geometry><mesh filename="package://uav_v4/meshes/${mesh}"/></geometry>
+        <material name="${name}_material"><color rgba="${color}"/></material>
+      </visual>
+      <!-- A convex primitive avoids ODE instability from a high-speed,
+           non-convex SolidWorks triangle mesh. Visual/inertial truth is kept. -->
+      <collision>
+        <origin xyz="0 0 -0.011" rpy="0 0 0"/>
+        <geometry><cylinder radius="0.065" length="0.030"/></geometry>
+      </collision>
+    </link>
+  </xacro:macro>
+
+  <xacro:macro name="wheel_joint" params="number xyz axis">
+    <joint name="wheel${number}_joint" type="continuous">
+      <origin xyz="${xyz}" rpy="0 0 0"/>
+      <parent link="base_link"/>
+      <child link="wheel${number}_link"/>
+      <axis xyz="${axis}"/>
+      <dynamics damping="0.02" friction="0.01"/>
+    </joint>
+  </xacro:macro>
+
+  <xacro:macro name="arm_joint" params="number xyz">
+    <joint name="arm${number}_joint" type="fixed">
+      <origin xyz="${xyz}" rpy="0 0 0"/>
+      <parent link="base_link"/>
+      <child link="arm${number}_link"/>
+    </joint>
+  </xacro:macro>
+
+  <xacro:macro name="rotor_joint" params="number xyz">
+    <joint name="rotor_${number}_joint" type="continuous">
+      <origin xyz="${xyz}" rpy="0 0 0"/>
+      <parent link="base_link"/>
+      <child link="rotor_${number}"/>
+      <axis xyz="0 0 1"/>
+      <dynamics damping="0.0001"/>
+    </joint>
+  </xacro:macro>
+
+  <xacro:macro name="rotor_structure" params="number xyz com ixx ixy ixz iyy iyz izz">
+    <link name="rotor_${number}_structure">
+      <inertial>
+        <origin xyz="${com}" rpy="0 0 0"/>
+        <mass value="0.13856"/>
+        <inertia ixx="${ixx}" ixy="${ixy}" ixz="${ixz}"
+                 iyy="${iyy}" iyz="${iyz}" izz="${izz}"/>
+      </inertial>
+    </link>
+    <joint name="rotor_${number}_structure_joint" type="fixed">
+      <origin xyz="${xyz}" rpy="0 0 0"/>
+      <parent link="base_link"/>
+      <child link="rotor_${number}_structure"/>
+    </joint>
+  </xacro:macro>
+
+  <xacro:mesh_link name="base_link" mass="2.2782"
+    com="0.0027205 3.1868e-05 0.016326"
+    ixx="0.0010088" ixy="-1.2793e-06" ixz="5.9514e-06"
+    iyy="0.00068372" iyz="7.939e-06" izz="0.0014123"
+    mesh="base_link.STL" color="1 1 1 1"/>
+
+  <xacro:mesh_link name="wheel1_link" mass="0.037807" com="0 0.015781 0"
+    ixx="4.513e-06" ixy="-1.3835e-21" ixz="-1.7984e-20"
+    iyy="5.9992e-06" iyz="-1.2662e-21" izz="4.513e-06"
+    mesh="wheel1_link.STL" color="0.75294 0.75294 0.75294 1"/>
+  <xacro:mesh_link name="wheel2_link" mass="0.037807" com="0 0.015781 0"
+    ixx="4.513e-06" ixy="-1.3736e-21" ixz="-1.8352e-20"
+    iyy="5.9992e-06" iyz="-1.5042e-21" izz="4.513e-06"
+    mesh="wheel2_link.STL" color="0.75294 0.75294 0.75294 1"/>
+  <xacro:mesh_link name="wheel3_link" mass="0.037807" com="0 -0.015781 0"
+    ixx="4.513e-06" ixy="1.4366e-21" ixz="1.0591e-20"
+    iyy="5.9992e-06" iyz="-7.4952e-22" izz="4.513e-06"
+    mesh="wheel3_link.STL" color="0.75294 0.75294 0.75294 1"/>
+  <xacro:mesh_link name="wheel4_link" mass="0.037807" com="0 -0.015719 0"
+    ixx="4.513e-06" ixy="6.0908e-23" ixz="1.5908e-20"
+    iyy="5.9992e-06" iyz="-2.0557e-21" izz="4.513e-06"
+    mesh="wheel4_link.STL" color="0.75294 0.75294 0.75294 1"/>
+
+  <xacro:wheel_joint number="1" xyz="0.04 -0.088 -0.015" axis="0 1 0"/>
+  <xacro:wheel_joint number="2" xyz="-0.04 -0.088 -0.015" axis="0 1 0"/>
+  <xacro:wheel_joint number="3" xyz="0.04 0.088 -0.015" axis="0 -1 0"/>
+  <xacro:wheel_joint number="4" xyz="-0.04 0.088 -0.015" axis="0 1 0"/>
+
+  <xacro:mesh_link name="arm1_link" mass="0.010108" com="0.029359 -0.029033 0.001856"
+    ixx="3.6495e-06" ixy="3.4138e-06" ixz="-5.9984e-21"
+    iyy="3.7257e-06" iyz="6.5036e-21" izz="7.3601e-06"
+    mesh="arm1_link.STL" color="1 1 1 1"/>
+  <xacro:mesh_link name="arm2_link" mass="0.0101076088045098"
+    com="-0.0292962581830913 0.0289714060323844 0.00185602485905342"
+    ixx="3.64954032673343e-06" ixy="3.41381876615257e-06" ixz="-1.77688991786571e-21"
+    iyy="3.72567317704808e-06" iyz="2.36511102283099e-21" izz="7.36005209057475e-06"
+    mesh="arm2_link.STL" color="1 1 1 1"/>
+  <xacro:mesh_link name="arm3_link" mass="0.010108" com="0.029033 0.029359 0.001856"
+    ixx="3.7257e-06" ixy="-3.4138e-06" ixz="8.2237e-21"
+    iyy="3.6495e-06" iyz="8.7612e-21" izz="7.3601e-06"
+    mesh="arm3_link.STL" color="1 1 1 1"/>
+  <xacro:mesh_link name="arm4_link" mass="0.010108" com="-0.029033 -0.029359 0.001856"
+    ixx="3.7257e-06" ixy="-3.4138e-06" ixz="3.5619e-21"
+    iyy="3.6495e-06" iyz="3.8509e-21" izz="7.3601e-06"
+    mesh="arm4_link.STL" color="1 1 1 1"/>
+
+  <xacro:arm_joint number="1" xyz="0.0475 -0.0455 0.04"/>
+  <xacro:arm_joint number="2" xyz="-0.0475 0.0455 0.04"/>
+  <xacro:arm_joint number="3" xyz="0.0475 0.0455 0.04"/>
+  <xacro:arm_joint number="4" xyz="-0.0475 -0.0455 0.04"/>
+
+  <xacro:rotor_link name="rotor_0" mass="0.005" com="-0.00012069 6.7575e-05 -0.015469"
+    ixx="3.73049595988e-07" ixy="1.33867372527e-11" ixz="-2.4544789635e-13"
+    iyy="3.73049595988e-07" iyz="2.4970047367e-12" izz="5.29604346615e-07"
+    mesh="wing1_link.STL" color="1 1 1 0.85"/>
+  <xacro:rotor_link name="rotor_1" mass="0.005" com="-0.00013824 -3.4396e-06 -0.015469"
+    ixx="3.73049595988e-07" ixy="-7.73613820006e-12" ixz="-9.9592504876e-13"
+    iyy="3.73049595988e-07" iyz="-3.33331011424e-12" izz="5.29604346615e-07"
+    mesh="wing2_link.STL" color="1 1 1 0.85"/>
+  <xacro:rotor_link name="rotor_2" mass="0.005" com="0.00013284 3.9015e-05 -0.015469"
+    ixx="3.73049595988e-07" ixy="3.3933546949e-12" ixz="2.87945806631e-14"
+    iyy="3.73014767345e-07" iyz="-4.77082752856e-12" izz="5.29569517972e-07"
+    mesh="wing3_link.STL" color="1 1 1 0.85"/>
+  <xacro:rotor_link name="rotor_3" mass="0.005" com="-8.3369e-05 0.00011068 -0.015469"
+    ixx="3.73049595988e-07" ixy="-7.68180551686e-12" ixz="-1.85399832823e-13"
+    iyy="3.73049595988e-07" iyz="-3.91090833101e-12" izz="5.29604346615e-07"
+    mesh="wing4_link.STL" color="1 1 1 0.85"/>
+
+  <xacro:rotor_joint number="0" xyz="0.104504 -0.10182 0.0693"/>
+  <xacro:rotor_joint number="1" xyz="-0.104245 0.101756 0.0693"/>
+  <xacro:rotor_joint number="2" xyz="0.103619440914974 0.102344290523756 0.0693"/>
+  <xacro:rotor_joint number="3" xyz="-0.103669 -0.102494 0.0693"/>
+
+  <!-- Fixed motor/pod share of each exported 0.14356 kg wing assembly.
+       Fixed + rotating terms exactly recover each original mass and inertia. -->
+  <xacro:rotor_structure number="0" xyz="0.104504 -0.10182 0.0693"
+    com="-0.00012069 6.7575e-05 -0.015469"
+    ixx="1.0337950404e-05" ixy="3.70973262747e-10" ixz="-6.80185210365e-12"
+    iyy="1.0337950404e-05" iyz="6.91969952633e-11" izz="1.46763956534e-05"/>
+  <xacro:rotor_structure number="1" xyz="-0.104245 0.101756 0.0693"
+    com="-0.00013824 -3.4396e-06 -0.015469"
+    ixx="1.0337950404e-05" ixy="-2.143838618e-10" ixz="-2.75990749512e-11"
+    iyy="1.0337950404e-05" iyz="-9.23726898858e-11" izz="1.46763956534e-05"/>
+  <xacro:rotor_structure number="2" xyz="0.103619440914974 0.102344290523756 0.0693"
+    com="0.00013284 3.9015e-05 -0.015469"
+    ixx="1.0337950404e-05" ixy="9.40366453051e-11" ixz="7.97955419337e-13"
+    iyy="1.03369852327e-05" iyz="-1.32209172471e-10" izz="1.4675430482e-05"/>
+  <xacro:rotor_structure number="3" xyz="-0.103669 -0.102494 0.0693"
+    com="-8.3369e-05 0.00011068 -0.015469"
+    ixx="1.0337950404e-05" ixy="-2.12878194483e-10" ixz="-5.13780016718e-12"
+    iyy="1.0337950404e-05" iyz="-1.08379091669e-10" izz="1.46763956534e-05"/>
+
+  <xacro:macro name="motor_plugin" params="number direction">
+    <gazebo>
+      <plugin name="uav_v4_motor_${number}" filename="librotors_gazebo_motor_model.so">
+        <robotNamespace>uav_v4</robotNamespace>
+        <jointName>rotor_${number}_joint</jointName>
+        <linkName>rotor_${number}</linkName>
+        <turningDirection>${direction}</turningDirection>
+        <timeConstantUp>0.0125</timeConstantUp>
+        <timeConstantDown>0.025</timeConstantDown>
+        <maxRotVelocity>1100</maxRotVelocity>
+        <motorConstant>1.568e-05</motorConstant>
+        <momentConstant>0.06</momentConstant>
+        <commandSubTopic>gazebo/command/motor_speed</commandSubTopic>
+        <motorNumber>${number}</motorNumber>
+        <rotorDragCoefficient>0.000175</rotorDragCoefficient>
+        <rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
+        <motorSpeedPubTopic>motor_speed/${number}</motorSpeedPubTopic>
+        <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
+      </plugin>
+    </gazebo>
+  </xacro:macro>
+
+  <!-- Diagonal pairs share direction; adjacent rotors oppose for yaw balance. -->
+  <xacro:motor_plugin number="0" direction="ccw"/>
+  <xacro:motor_plugin number="1" direction="ccw"/>
+  <xacro:motor_plugin number="2" direction="cw"/>
+  <xacro:motor_plugin number="3" direction="cw"/>
+
+  <gazebo>
+    <plugin name="uav_v4_multirotor_base" filename="librotors_gazebo_multirotor_base_plugin.so">
+      <robotNamespace>uav_v4</robotNamespace>
+      <linkName>base_link</linkName>
+      <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
+    </plugin>
+    <plugin name="uav_v4_controller_interface" filename="librotors_gazebo_controller_interface.so">
+      <robotNamespace>uav_v4</robotNamespace>
+      <commandAttitudeThrustSubTopic>command/attitude</commandAttitudeThrustSubTopic>
+      <commandRateThrustSubTopic>command/rate</commandRateThrustSubTopic>
+      <commandMotorSpeedSubTopic>command/motor_speed</commandMotorSpeedSubTopic>
+      <imuSubTopic>imu</imuSubTopic>
+      <motorSpeedCommandPubTopic>gazebo/command/motor_speed</motorSpeedCommandPubTopic>
+    </plugin>
+    <plugin name="uav_v4_imu" filename="librotors_gazebo_imu_plugin.so">
+      <robotNamespace>uav_v4</robotNamespace>
+      <linkName>base_link</linkName>
+      <imuTopic>imu</imuTopic>
+      <gyroscopeNoiseDensity>0.0003394</gyroscopeNoiseDensity>
+      <gyroscopeRandomWalk>3.8785e-05</gyroscopeRandomWalk>
+      <gyroscopeBiasCorrelationTime>1000.0</gyroscopeBiasCorrelationTime>
+      <gyroscopeTurnOnBiasSigma>0.0087</gyroscopeTurnOnBiasSigma>
+      <accelerometerNoiseDensity>0.004</accelerometerNoiseDensity>
+      <accelerometerRandomWalk>0.006</accelerometerRandomWalk>
+      <accelerometerBiasCorrelationTime>300.0</accelerometerBiasCorrelationTime>
+      <accelerometerTurnOnBiasSigma>0.196</accelerometerTurnOnBiasSigma>
+    </plugin>
+    <plugin name="uav_v4_odometry" filename="librotors_gazebo_odometry_plugin.so">
+      <robotNamespace>uav_v4</robotNamespace>
+      <linkName>base_link</linkName>
+      <poseTopic>pose</poseTopic>
+      <poseWithCovarianceTopic>pose_with_covariance</poseWithCovarianceTopic>
+      <positionTopic>position</positionTopic>
+      <transformTopic>transform</transformTopic>
+      <odometryTopic>odometry</odometryTopic>
+      <parentFrameId>world</parentFrameId>
+      <childFrameId>uav_v4/base_link</childFrameId>
+      <measurementDivisor>1</measurementDivisor>
+      <measurementDelay>0</measurementDelay>
+      <unknownDelay>0.0</unknownDelay>
+      <noiseNormalPosition>0 0 0</noiseNormalPosition>
+      <noiseNormalQuaternion>0 0 0</noiseNormalQuaternion>
+      <noiseNormalLinearVelocity>0 0 0</noiseNormalLinearVelocity>
+      <noiseNormalAngularVelocity>0 0 0</noiseNormalAngularVelocity>
+      <noiseUniformPosition>0 0 0</noiseUniformPosition>
+      <noiseUniformQuaternion>0 0 0</noiseUniformQuaternion>
+      <noiseUniformLinearVelocity>0 0 0</noiseUniformLinearVelocity>
+      <noiseUniformAngularVelocity>0 0 0</noiseUniformAngularVelocity>
+    </plugin>
+    <plugin name="uav_v4_mode_aware_ground" filename="libmode_aware_planar_move_plugin.so">
+      <commandTopic>/mecanum/cmd_vel</commandTopic>
+      <modeTopic>/rescue/mode</modeTopic>
+      <disarmedTopic>/rescue/rotors/disarmed</disarmedTopic>
+      <commandTimeout>0.5</commandTimeout>
+    </plugin>
+  </gazebo>
+</robot>

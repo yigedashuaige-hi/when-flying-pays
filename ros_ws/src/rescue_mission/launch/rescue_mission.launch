@@ -1,0 +1,110 @@
+<launch>
+  <arg name="strategy" default="rule" />
+  <arg name="scene" default="scene_a" />
+  <arg name="seed" default="-1" />
+  <arg name="mission_timeout" default="120.0" />
+  <arg name="runs_dir" default="" />
+  <arg name="latest_csv_path" default="" />
+  <arg name="ablation" default="none" />
+  <arg name="heteroscedastic" default="false" />
+  <arg name="initial_battery" default="-1" />
+  <arg name="switch_tau" default="-1" />
+  <arg name="fixed_first_switch_time" default="-1" />
+  <arg name="stuck_model" default="permanent" />
+  <arg name="fly_k1" default="-1" />
+  <arg name="air_backend" default="ideal" />
+  <arg name="layout_override_file" default="" />
+
+  <rosparam command="load" file="$(find rescue_mission)/config/mode_switch_params.yaml" />
+  <!-- Phase D2: additive RotorS-only mechanical-proxy supervisor budget.
+       The ideal backend never loads or consumes these parameters. -->
+  <rosparam command="load" file="$(find rescue_mission)/config/rotors_supervisor_d2.yaml"
+            if="$(eval arg('air_backend') == 'rotors')" />
+  <rosparam command="load" file="$(find rescue_mission)/config/scenes/scene_a.yaml"
+            if="$(eval arg('scene') == 'scene_a')" />
+  <rosparam command="load" file="$(find rescue_mission)/config/scenes/scene_b.yaml"
+            if="$(eval arg('scene') == 'scene_b')" />
+  <rosparam command="load" file="$(find rescue_mission)/config/scenes/scene_c.yaml"
+            if="$(eval arg('scene') == 'scene_c')" />
+  <rosparam command="load" file="$(find rescue_mission)/config/scenes/scene_d.yaml"
+            if="$(eval arg('scene') == 'scene_d')" />
+  <rosparam command="load" file="$(find rescue_mission)/config/scenes/scene_e.yaml"
+            if="$(eval arg('scene') == 'scene_e')" />
+  <rosparam command="load" file="$(find rescue_mission)/config/scenes/scene_sparse.yaml"
+            if="$(eval arg('scene') == 'scene_sparse')" />
+  <!-- Optional experiment-local geometry override, loaded after the frozen
+       scene so only explicitly listed layout fields change. -->
+  <rosparam command="load" file="$(arg layout_override_file)"
+            unless="$(eval arg('layout_override_file') == '')" />
+  <!-- Ablation overrides load after the scene so they win. ablation:=none skips. -->
+  <rosparam command="load" file="$(find rescue_mission)/config/ablations/$(arg ablation).yaml"
+            unless="$(eval arg('ablation') == 'none')" />
+
+  <node pkg="rescue_mission" type="mode_switcher.py" name="mode_switcher" output="screen">
+    <param name="strategy" value="$(arg strategy)" />
+    <param name="air_backend" value="$(arg air_backend)" />
+    <param name="switch_tau" value="$(arg switch_tau)" />
+    <param name="fixed_first_switch_time" value="$(arg fixed_first_switch_time)" />
+    <param name="flight_feedback_enabled"
+           value="$(eval arg('air_backend') == 'rotors')" />
+    <param name="cruise_altitude" value="1.2" />
+    <param name="handoff_managed" value="$(eval arg('air_backend') == 'rotors')" />
+  </node>
+
+  <node pkg="rescue_mission" type="mission_state_machine.py" name="mission_state_machine" output="screen" />
+  <node pkg="rescue_mission" type="ground_goal_controller.py" name="ground_goal_controller" output="screen">
+    <param name="seed" value="$(arg seed)" />
+    <param name="stuck_model" value="$(arg stuck_model)" />
+  </node>
+  <node pkg="rescue_mission" type="air_goal_bridge.py" name="air_goal_bridge" output="screen"
+        unless="$(eval arg('air_backend') == 'rotors')">
+    <param name="publish_rotors_command_pose"
+           value="$(eval arg('air_backend') == 'rotors')" />
+    <param name="rotors_command_pose_topic" value="/uav_v4/command/pose" />
+    <param name="frame_id" value="world" />
+    <param name="cruise_altitude" value="1.2" />
+    <param name="ground_altitude" value="0.05" />
+  </node>
+  <node pkg="rescue_mission" type="air_motion_executor.py" name="air_motion_executor"
+        output="screen" unless="$(eval arg('air_backend') == 'rotors')" />
+
+  <group if="$(eval arg('air_backend') == 'rotors')">
+    <rosparam command="load" file="$(find rescue_mission)/config/rotors_handoff_e1a_h.yaml" />
+    <node pkg="rescue_mission" type="rotors_handoff_coordinator.py"
+          name="rotors_handoff_coordinator" output="screen" />
+    <group ns="uav_v4">
+      <node pkg="rotors_control" type="lee_position_controller_node"
+            name="lee_position_controller_node" output="screen">
+        <rosparam command="load" file="$(find uav_v4)/config/lee_controller_uav_v4.yaml" />
+        <rosparam command="load" file="$(find uav_v4)/config/uav_v4_rotors_native.yaml" />
+        <remap from="command/motor_speed" to="command/motor_speed_raw" />
+      </node>
+    </group>
+    <node pkg="rescue_mission" type="rotors_motor_gate.py"
+          name="rotors_motor_gate" output="screen">
+      <param name="handoff_managed" value="true" />
+    </node>
+    <node pkg="rescue_mission" type="rotors_odometry_bridge.py"
+          name="rotors_odometry_bridge" output="screen" />
+  </group>
+  <node pkg="rescue_mission" type="scenario_sensor_sim.py" name="scenario_sensor_sim" output="screen">
+    <param name="seed" value="$(arg seed)" />
+    <param name="heteroscedastic_noise" value="$(arg heteroscedastic)" />
+  </node>
+
+  <node pkg="rescue_mission" type="rescue_metrics_logger.py" name="rescue_metrics_logger" output="screen">
+    <param name="air_backend" value="$(arg air_backend)" />
+    <param name="strategy_tag" value="$(arg strategy)" />
+    <param name="scene_tag" value="$(arg scene)" />
+    <param name="seed" value="$(arg seed)" />
+    <param name="mission_timeout_sec" value="$(arg mission_timeout)" />
+    <param name="runs_dir" value="$(arg runs_dir)" />
+    <param name="latest_csv_path" value="$(arg latest_csv_path)"
+           unless="$(eval arg('latest_csv_path') == '')" />
+    <!-- Pilot battery-level override; -1 keeps the scene/param default. -->
+    <param name="initial_battery" value="$(arg initial_battery)"
+           if="$(eval float(arg('initial_battery')) >= 0.0)" />
+    <param name="fly_k1" value="$(arg fly_k1)"
+           if="$(eval float(arg('fly_k1')) >= 0.0)" />
+  </node>
+</launch>

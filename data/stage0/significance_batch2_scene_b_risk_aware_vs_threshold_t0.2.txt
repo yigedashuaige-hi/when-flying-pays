@@ -1,0 +1,13 @@
+Paired significance: risk_aware (treatment) vs threshold_switch (baseline)  scene=scene_b
+strategies in file: ['risk_aware', 'threshold_switch']
+
+Wilcoxon signed-rank (continuous, paired by seed):
+  stuck_event_count    n=20 identical (treat=0.000 base=0.000) p=1.000 (no difference)
+  total_energy_j       n=20 treat=80.576 base=67.161 median_diff=+19.593 95%CI[+7.557,+27.173] rank_biserial=+0.476 p=0.06372 [treat_lower:5 higher:15 tie:0]
+  slip_ratio           n=20 treat=0.167 base=0.146 median_diff=+0.028 95%CI[-0.005,+0.043] rank_biserial=+0.476 p=0.06372 [treat_lower:7 higher:13 tie:0]
+  total_time_s         n=20 treat=58.070 base=54.340 median_diff=+6.500 95%CI[-0.700,+8.800] rank_biserial=+0.314 p=0.2305 [treat_lower:7 higher:13 tie:0]
+
+McNemar (binary, paired by seed):
+  success              n=20 treat_rate=0.95 base_rate=1.00 discordant(b=0,c=1) p=1
+  timeout              n=20 treat_rate=0.05 base_rate=0.00 discordant(b=1,c=0) p=1
+  irreversible_failure n=20 treat_rate=0.00 base_rate=0.00 discordant(b=0,c=0) p=1.000

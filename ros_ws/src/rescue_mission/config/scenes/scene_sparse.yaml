@@ -1,0 +1,42 @@
+# Scene Sparse: sparse-hazard regime for the Claim A stress test.
+#
+# The route is mostly safe terrain with a SINGLE narrow risky band (x ~ 6.8-7.6)
+# and essentially no slope zone. This is the regime where SELECTIVE flying is
+# most rewarded: a smart policy flies only the short barrier and walks the rest.
+# Paired with --fly-k1 high (expensive flight) this is the one corner where
+# risk_aware/CVaR could plausibly beat a tuned threshold (pre-registered as the
+# only remaining place Claim A might be NARROW rather than DOWNGRADE).
+#
+# FROZEN before the runs. Not tuned to make risk_aware win — geometry mirrors the
+# narrow_hazard_marker in disaster_scene_sparse.world (x7.2, 0.8 m wide); the only
+# baseline-favouring sweep is threshold_switch's tau.
+
+mission_state_machine:
+  waypoints:
+    - [2.0, 0.0, 0.0]
+    - [4.0, 0.2, 0.0]
+    - [6.0, -0.2, 0.0]
+    - [8.0, 0.3, 0.0]
+    - [10.0, 0.0, 0.0]
+
+ground_goal_controller:
+  terrain_effects_enabled: true
+  min_traction: 0.12
+  stuck_traction: 0.0
+  terrain_cost_gain: 0.85
+  obstacle_density_gain: 0.45
+  stuck_risk_gain: 0.65
+  stuck_risk_threshold: 0.64
+  stuck_obstacle_threshold: 0.70
+
+scenario_sensor_sim:
+  use_time_script: false
+  use_position_script: true
+  base_obstacle_density: 0.05      # mostly-safe route
+  slope_zone_deg: 0.0              # no slope zone -> hazard is sparse, localized
+  slope_zone_x_min: 0.0
+  slope_zone_x_max: 0.0
+  barrier_obstacle_density: 0.90   # the single narrow band is genuinely risky
+  barrier_x_min: 6.8
+  barrier_x_max: 7.6
+  barrier_y_half_width: 0.6

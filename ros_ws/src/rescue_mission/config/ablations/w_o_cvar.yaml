@@ -1,0 +1,8 @@
+# Ablation: w/o CVaR. Drops the tail-risk (CVaR) term from risk_aware's ground
+# cost (wcvar = 0), leaving only energy/detour/switch terms — isolates the
+# contribution of the tail-risk objective. Compare against `full` and against
+# energy_rule.
+mode_switcher:
+  ablation_tag: w_o_cvar
+  risk_aware:
+    wcvar: 0.0

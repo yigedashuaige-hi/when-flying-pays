@@ -1,0 +1,2 @@
+success,timeout,done_sim_s,final_mission_state,final_handoff_state,takeoff_count,landing_count,all_takeoffs_fresh_site_valid,all_landings_disarmed,final_motor_mean_abs_rad_s,final_disarmed,finite,one_uav_v4,dual_owner_samples,invalid_takeoff_motor_samples,max_motor_during_reposition_rad_s,persistent_safe_site_count_final
+1,0,80.0,DONE,GROUND_DRIVE,3,3,1,1,0.0,1,1,1,0,0,0.0,32

@@ -1,0 +1,30 @@
+<launch>
+  <!-- Phase D1 only: one native uav_v4, controller/gate, and the additive
+       metrics logger. No mission policy, safety supervisor, or paper runner. -->
+  <arg name="gui" default="false" />
+  <arg name="headless" default="true" />
+  <arg name="output_csv" default="/tmp/uav_v4_rotors_energy_samples.csv" />
+  <arg name="update_rate" default="20.0" />
+
+  <include file="$(find rescue_worlds)/launch/uav_v4_rotors_hybrid_smoke.launch">
+    <arg name="gui" value="$(arg gui)" />
+    <arg name="headless" value="$(arg headless)" />
+    <arg name="paused" value="false" />
+  </include>
+
+  <node pkg="rescue_mission" type="rescue_metrics_logger.py"
+        name="rescue_metrics_logger" output="screen">
+    <param name="strategy_tag" value="phase_d1_calibration" />
+    <param name="scene_tag" value="scene_a" />
+    <param name="seed" value="-1" />
+    <param name="air_backend" value="rotors" />
+    <param name="csv_path" value="$(arg output_csv)" />
+    <!-- Never touch the Stage-0 latest mirror during calibration. -->
+    <param name="latest_csv_path" value="$(arg output_csv)" />
+    <param name="mission_timeout_sec" value="10000" />
+    <param name="update_rate" value="$(arg update_rate)" />
+    <param name="rotor_force_constant_n_per_rad_s_sq" value="1.568e-05" />
+    <param name="rotor_moment_constant_m" value="0.06" />
+    <param name="rotor_velocity_slowdown_sim" value="10.0" />
+  </node>
+</launch>

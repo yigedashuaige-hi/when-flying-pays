@@ -1,0 +1,69 @@
+<?xml version="1.0" ?>
+<sdf version="1.5">
+  <world name="disaster_scene">
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <physics type="ode">
+      <max_step_size>0.001</max_step_size>
+      <real_time_update_rate>1000</real_time_update_rate>
+    </physics>
+
+    <model name="narrow_passage_left">
+      <static>true</static>
+      <pose>4 0.8 0.45 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>4.0 0.25 0.9</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>4.0 0.25 0.9</size></box></geometry>
+          <material><script><uri>file://media/materials/scripts/gazebo.material</uri><name>Gazebo/Gray</name></script></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="narrow_passage_right">
+      <static>true</static>
+      <pose>4 -0.8 0.45 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>4.0 0.25 0.9</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>4.0 0.25 0.9</size></box></geometry>
+          <material><script><uri>file://media/materials/scripts/gazebo.material</uri><name>Gazebo/Gray</name></script></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="fly_over_barrier">
+      <static>true</static>
+      <pose>7 0 0.45 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>0.4 2.4 0.9</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>0.4 2.4 0.9</size></box></geometry>
+          <material><script><uri>file://media/materials/scripts/gazebo.material</uri><name>Gazebo/Orange</name></script></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="victim_marker">
+      <static>true</static>
+      <pose>10 0 0.25 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><cylinder><radius>0.25</radius><length>0.5</length></cylinder></geometry>
+          <material><ambient>1 0 0 1</ambient><diffuse>1 0 0 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+  </world>
+</sdf>

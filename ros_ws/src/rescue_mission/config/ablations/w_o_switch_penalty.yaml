@@ -1,0 +1,9 @@
+# Ablation: w/o switch penalty. Removes the mode-switch cost from both the
+# decision objective and the energy bookkeeping — isolates how much the switch
+# penalty discourages thrashing between ground and air.
+mode_switcher:
+  ablation_tag: w_o_switch_penalty
+  risk_aware:
+    switch_penalty: 0.0
+rescue_metrics_logger:
+  switch_energy_cost: 0.0

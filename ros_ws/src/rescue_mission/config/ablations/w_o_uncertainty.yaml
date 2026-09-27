@@ -1,0 +1,8 @@
+# Ablation: w/o uncertainty. risk_aware no longer inflates the failure
+# probability with traversability_uncertainty (k_unc = 0), so it sees only the
+# mean traversability — isolates the contribution of epistemic-uncertainty
+# awareness. CVaR is still used.
+mode_switcher:
+  ablation_tag: w_o_uncertainty
+  risk_aware:
+    k_unc: 0.0

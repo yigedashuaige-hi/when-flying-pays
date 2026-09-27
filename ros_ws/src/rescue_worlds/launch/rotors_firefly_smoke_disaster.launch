@@ -1,0 +1,52 @@
+<launch>
+  <!-- Standalone RotorS infrastructure smoke test only.  This launch does not
+       include rescue_mission, uav_v4, or air_motion_executor. -->
+  <arg name="mav_name" default="firefly" />
+  <arg name="gui" default="false" />
+  <arg name="headless" default="true" />
+  <arg name="paused" default="false" />
+  <arg name="verbose" default="false" />
+  <arg name="world_name"
+       default="$(find rescue_worlds)/worlds/disaster_scene_a_rotors_smoke.world" />
+
+  <env name="GAZEBO_MODEL_PATH"
+       value="$(find rotors_gazebo)/models:$(optenv GAZEBO_MODEL_PATH)" />
+  <env name="GAZEBO_RESOURCE_PATH"
+       value="$(find rotors_gazebo)/models:$(optenv GAZEBO_RESOURCE_PATH)" />
+  <env name="GAZEBO_PLUGIN_PATH"
+       value="$(optenv CATKIN_WS /workspace/ros_ws)/devel/lib:/opt/ros/noetic/lib:$(optenv GAZEBO_PLUGIN_PATH)" />
+
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(arg world_name)" />
+    <arg name="paused" value="$(arg paused)" />
+    <arg name="use_sim_time" value="true" />
+    <arg name="gui" value="$(arg gui)" />
+    <arg name="headless" value="$(arg headless)" />
+    <arg name="verbose" value="$(arg verbose)" />
+  </include>
+
+  <group ns="$(arg mav_name)">
+    <include file="$(find rotors_gazebo)/launch/spawn_mav.launch">
+      <arg name="mav_name" value="$(arg mav_name)" />
+      <arg name="namespace" value="$(arg mav_name)" />
+      <arg name="model"
+           value="$(find rotors_description)/urdf/mav_generic_odometry_sensor.gazebo" />
+      <arg name="x" value="0.0" />
+      <arg name="y" value="0.0" />
+      <arg name="z" value="0.20" />
+      <arg name="enable_logging" value="false" />
+      <arg name="enable_ground_truth" value="true" />
+    </include>
+
+    <node name="lee_position_controller_node"
+          pkg="rotors_control"
+          type="lee_position_controller_node"
+          output="screen">
+      <rosparam command="load"
+                file="$(find rotors_gazebo)/resource/lee_controller_$(arg mav_name).yaml" />
+      <rosparam command="load"
+                file="$(find rotors_gazebo)/resource/$(arg mav_name).yaml" />
+      <remap from="odometry" to="odometry_sensor1/odometry" />
+    </node>
+  </group>
+</launch>

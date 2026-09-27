@@ -1,0 +1,77 @@
+{
+  "audit_date": "2026-08-29",
+  "audit_status": "PASS_WITH_DOCUMENTED_NONSCIENTIFIC_LOGGER_EXTENSION",
+  "review_independence": "local_deterministic_audit_only; no independent reviewer agent was used",
+  "frozen_f1_source": "src/rescue_mission/results/phase_f1_fair_tuning_20260821",
+  "old_files_overwritten": false,
+  "frozen_condition_checks": {
+    "scene": "scene_c",
+    "strategy": "threshold_switch",
+    "switch_tau": 0.4,
+    "stuck_model": "recoverable",
+    "air_backend": "ideal",
+    "ablation": "none",
+    "heteroscedastic": false,
+    "initial_battery_override": -1,
+    "fly_k1_override": -1,
+    "mission_timeout_parameter_sim_s": 85.0,
+    "seeds": [204, 207, 209, 212]
+  },
+  "frozen_hash_matches": {
+    "mode_switcher.py": {
+      "expected": "c9d84ab2dac41d24465529ab9ae2e7817ae3e7617847a679bf5f75a3de5e5f57",
+      "observed": "c9d84ab2dac41d24465529ab9ae2e7817ae3e7617847a679bf5f75a3de5e5f57",
+      "match": true
+    },
+    "mode_switch_params.yaml": {
+      "expected": "9ca954e22c3244ceef8b4307208915b1509f0374c406b3605d32f426e2c3c8a9",
+      "observed": "9ca954e22c3244ceef8b4307208915b1509f0374c406b3605d32f426e2c3c8a9",
+      "match": true
+    },
+    "scene_c.yaml": {
+      "expected": "747ca8dd268de86b73cf9f27484bc0a5b5edb9b94d7be297c6c0abaa34b81ec5",
+      "observed": "747ca8dd268de86b73cf9f27484bc0a5b5edb9b94d7be297c6c0abaa34b81ec5",
+      "match": true
+    },
+    "rescue_mission.launch": {
+      "expected": "7ed62dd635e86af0bd9fc17e6522fb45eecfcb323a0f157f7d804c241cc91b1e",
+      "observed": "7ed62dd635e86af0bd9fc17e6522fb45eecfcb323a0f157f7d804c241cc91b1e",
+      "match": true
+    },
+    "rescue_phase1_demo.launch": {
+      "expected": "67bef96b3677b92f0074290ffb19118f4f0448ca73a08413cdaa47b12e4c16fe",
+      "observed": "67bef96b3677b92f0074290ffb19118f4f0448ca73a08413cdaa47b12e4c16fe",
+      "match": true
+    }
+  },
+  "environment": {
+    "container_image_tag": "edu_demo:v1",
+    "expected_image_sha256": "85592064297803dd6512f3f2070b38446253d280e2a0395ca7745d4298b05fd7",
+    "observed_image_sha256": "85592064297803dd6512f3f2070b38446253d280e2a0395ca7745d4298b05fd7",
+    "ros_distro": "noetic",
+    "roslaunch_version": "1.17.4",
+    "gazebo_version": "11.15.1",
+    "python_version": "3.8.10"
+  },
+  "additional_input_hashes": {
+    "disaster_scene_c.world": "3c984338ae1a9ed40fd867c09abf050b179d6f4d1e35f7da94dda9a9a6dad116",
+    "uav_v4.urdf": "894aeb015512d5b716c22d7bfde9c2ea86bc40d1ca2fe51f37a930bff26ceada",
+    "ground_goal_controller.py": "abfd32fe761badffa99832dcdd6d1d6f0eeda776e3094b5e17d546c1c783303b",
+    "mission_state_machine.py": "d115f859be83f2da708d2858a4e2dc963176317e0f36ac7ccb8bc0a047b7a835",
+    "scenario_sensor_sim.py": "b9f9eed3cdd4595f4a0917b6def5a431d6dce5f09d32b36d8520393a96b595a1",
+    "air_goal_bridge.py": "2ea19747486741e4464cc826add0ac03acacb7dc622406b5d2d9bbda889cf476",
+    "air_motion_executor.py": "ef75d2438450c793f48d0aafb0207633d1fd2d95ae7c08d7b3ce2d28c171f44a"
+  },
+  "documented_logger_extension": {
+    "current_rescue_metrics_logger_sha256": "819a31ed785efbbfabd4e6adacda7b40366146a249377b8d14b280907ecc45d9",
+    "pre_R2_backup_sha256": "1c5a9aa725568a5a6327f41a262b582cd6f29e6fb87a10fc9e4370243b8f2b48",
+    "difference": "append-only R2 persistent safe-site metadata fields and subscriptions",
+    "ideal_control_chain_effect": "none; the added subscriptions have no publishers in air_backend=ideal and their values are logger output only",
+    "scientific_condition_changed": false
+  },
+  "only_allowed_change": {
+    "old_outer_stop": "130 s wall-clock roslaunch cutoff",
+    "replay_outer_stop": "DONE before /clock 85 s, otherwise /clock horizon 85 s",
+    "wall_watchdog": "900 s infrastructure-only watchdog; assigns no scientific label if triggered"
+  }
+}

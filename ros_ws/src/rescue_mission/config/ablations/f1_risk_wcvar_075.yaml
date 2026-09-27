@@ -1,0 +1,5 @@
+# Phase F1 preregistered risk-aware candidate. Do not edit after prereg freeze.
+mode_switcher:
+  ablation_tag: f1_risk_wcvar_075
+  risk_aware:
+    wcvar: 0.75

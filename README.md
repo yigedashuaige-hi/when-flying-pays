@@ -16,9 +16,8 @@ Correspondence: hongxinw918@gmail.com
 - `data/d2/` — RotorS shaft-mechanical proxy calibration and supervisor results.
 - `data/rotors_r2/` — bag-derived Scene A trajectory, event, and mission summaries; large ROS bags are omitted.
 - `analysis/` — standalone scripts for reproducing the compact statistics and figures.
+- `figures/` — the five final manuscript figures in PNG and PDF formats.
 - `docs/` — experiment protocols, engineering reports, and evidence boundaries.
-
-The package contains only material acquired no later than **2026-08-29 17:00 Asia/Shanghai**. Later exploratory experiments are excluded. The manuscript itself is maintained separately and is not included here.
 
 ## Reproduce the reported summaries
 

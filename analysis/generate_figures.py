@@ -181,7 +181,7 @@ def draw_robot(ax) -> None:
 
 def system_and_scenes() -> None:
     """Install the author-supplied overview artwork without regenerating it."""
-    source = PROJECT / "assets" / "system_overview.png"
+    source = PROJECT / "figures" / "figure_1_system_and_scenes.png"
     target = FIG / "fig01_system_scenes_evidence.png"
     if not source.exists():
         raise FileNotFoundError(f"Missing author-supplied Figure 1 asset: {source}")
@@ -564,6 +564,22 @@ def rotors_timeline() -> None:
     air_line, = ax_map.plot(data.x_m.where(air_like), data.y_m.where(air_like),
                             color=altitude_color, linewidth=1.45,
                             label="Takeoff / air / land", zorder=4)
+
+    def add_direction_arrows(mask, color, linestyle="-"):
+        groups = mask.ne(mask.shift(fill_value=False)).cumsum()
+        for _, segment in data.loc[mask].groupby(groups[mask]):
+            xy = segment[["x_m", "y_m"]].to_numpy(float)
+            if len(xy) < 3:
+                continue
+            distance = np.r_[0.0, np.cumsum(np.hypot(np.diff(xy[:, 0]), np.diff(xy[:, 1])))]
+            if distance[-1] < .28:
+                continue
+            j = int(np.clip(np.searchsorted(distance, .55 * distance[-1]), 1, len(xy) - 1))
+            i = max(0, j - max(1, len(xy) // 40))
+            ax_map.annotate("", xy=xy[j], xytext=xy[i], arrowprops=dict(arrowstyle="-|>", mutation_scale=7.5, color=color, lw=1.0, linestyle=linestyle), zorder=5)
+
+    add_direction_arrows(ground_like, "#8C5A2B", (0, (4, 2.2)))
+    add_direction_arrows(air_like, altitude_color)
 
     start = data.iloc[0]
     start_mark = ax_map.scatter(start.x_m, start.y_m, s=30, marker="o",
